@@ -1,6 +1,7 @@
 export interface Place {
     name: string,
-    country: string,
-    type: string,
+    description: string,
+    picture: string,
+    map?: string,    
     finished: boolean
 }

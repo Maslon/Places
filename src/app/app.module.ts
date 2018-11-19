@@ -10,6 +10,9 @@ import { HeaderComponent } from './navigation/header/header.component';
 import { SideComponent } from './navigation/side/side.component';
 import { PlacesTogoComponent } from './places/places-togo/places-togo.component';
 import { PlacesVisitedComponent } from './places/places-visited/places-visited.component';
+import { PlaceDetailComponent } from './places/places-togo/place-detail/place-detail.component';
+import { HomeComponent } from './home/home.component';
+import { AppRoutingModule } from './app.routing.module';
 
 @NgModule({
   declarations: [
@@ -18,13 +21,16 @@ import { PlacesVisitedComponent } from './places/places-visited/places-visited.c
     HeaderComponent,
     SideComponent,
     PlacesTogoComponent,
-    PlacesVisitedComponent
+    PlacesVisitedComponent,
+    PlaceDetailComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
