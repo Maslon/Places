@@ -1,6 +1,6 @@
-<div class="place">
-  <h1>Name</h1>
-  <p>obrazek</p>
-  <p>popis</p>
+<div class="place" fxLayout="column" fxLayoutAlign="center center" >
+  <h1>{{ place.name }}</h1>
+  <img src="{{ place.picture }}" alt="{{ place.name }}">
+  <p>{{ place.description }}</p>
   <p>mapa</p>
 </div>

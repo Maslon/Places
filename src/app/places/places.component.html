@@ -1,4 +1,7 @@
-<app-places-togo></app-places-togo>
+<app-places-togo  *ngFor="let place of places; let i = index"
+    [place]="place"
+    [index]="i"
+></app-places-togo>
 
 <p>Last visited</p>
 

@@ -1,15 +1,17 @@
 <p>Browse places</p> 
+<a [routerLink]="[index]">
+    <div class="card-container"fxLayout="column" fxLayoutAlign="center center">
+        <mat-card class="card">
+            <mat-card-title>{{ place.name }}</mat-card-title>
+            <mat-card-content>{{ place.description }}</mat-card-content>
+            <img src="{{ place.picture }}" mat-card-image>
+            <mat-card-actions>
+                <button mat-raised-button color="accent">Detail</button>
+            </mat-card-actions>
+        </mat-card>            
+    </div>
+</a>
 
-<div class="card-container"fxLayout="column" fxLayoutAlign="center center">
-    <mat-card class="card" *ngFor="let place of places" >
-        <mat-card-title>{{ place.name }}</mat-card-title>
-        <mat-card-content>{{ place.description }}</mat-card-content>
-        <img src="{{ place.picture }}" mat-card-image>
-        <mat-card-actions>
-            <button mat-raised-button color="accent">Detail</button>
-        </mat-card-actions>
-    </mat-card>            
-</div>
 
 
 <p>add place to go</p>

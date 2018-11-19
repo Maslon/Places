@@ -8,11 +8,6 @@
     }
 }
 
-@media(min-width: 900px){
-    .card{
-        width: 500px;       
-    }
-    .mat-card{
-        display: inline-block;
-    }
+a {
+    text-decoration: none;
 }
