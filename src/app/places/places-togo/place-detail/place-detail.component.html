@@ -3,4 +3,9 @@
   <img src="{{ place.picture }}" alt="{{ place.name }}">
   <p>{{ place.description }}</p>
   <div #myMap style="position:relative;width:600px;height:400px;"></div>
+  <div #printoutPanel></div>
+  <div #searchContainer>
+      <input #searchInput type="text" (keyup)="onKeyup()"  placeholder="write here">
+  </div>
+  <button mat-raised-button (click)="onClick()" color="primary">click</button>
 </div>
