@@ -9,14 +9,12 @@ export class PlacesService {
           name: "vidlakov",
           description: "pesky",
           picture: "https://www.milujemefotografii.cz/wp-content/uploads/2018/06/jak-fotit-krajinu-v-ruznych-podminkach-I-krajina-rano-vecer-i-v-noci-640x360.jpg",
-          map: "tady bude mapa",
           finished: false
         },
         {
           name: "vidlakwafwov",
           description: "peskwfawfay",
           picture: "https://www.milujemefotografii.cz/wp-content/uploads/2018/06/jak-fotit-krajinu-v-ruznych-podminkach-I-krajina-rano-vecer-i-v-noci-640x360.jpg",
-          map: "tady bude mapa",
           finished: false
         }
     ]

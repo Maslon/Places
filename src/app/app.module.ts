@@ -11,9 +11,11 @@ import { HeaderComponent } from './navigation/header/header.component';
 import { SideComponent } from './navigation/side/side.component';
 import { PlacesTogoComponent } from './places/places-togo/places-togo.component';
 import { PlacesVisitedComponent } from './places/places-visited/places-visited.component';
-import { PlaceDetailComponent } from './places/places-togo/place-detail/place-detail.component';
+import { PlaceDetailComponent } from './places/place-detail/place-detail.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app.routing.module';
+import { NewPlaceComponent } from './places/places-togo/new-place/new-place.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,11 @@ import { AppRoutingModule } from './app.routing.module';
     PlacesTogoComponent,
     PlacesVisitedComponent,
     PlaceDetailComponent,
-    HomeComponent
+    HomeComponent,
+    NewPlaceComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
