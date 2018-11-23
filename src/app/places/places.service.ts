@@ -31,6 +31,8 @@ export class PlacesService {
         })
     }
 
+    deletePlace
+
     private addToDatabase(status, exercise){
         this.db.collection(status).add(exercise)
     }

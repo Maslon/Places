@@ -30,6 +30,6 @@
           required
         >
       </mat-form-field>
-      <button type="submit" mat-raised-button color="accent">Create new place</button>
+      <button type="submit" [disabled]="f.invalid" mat-raised-button color="accent">Create new place</button>
   </form>
 </section>
