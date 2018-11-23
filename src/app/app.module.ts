@@ -16,6 +16,9 @@ import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app.routing.module';
 import { NewPlaceComponent } from './places/places-togo/new-place/new-place.component';
 import { FormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment.prod';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,9 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

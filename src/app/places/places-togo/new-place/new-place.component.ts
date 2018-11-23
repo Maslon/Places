@@ -1,4 +1,6 @@
+import { PlacesService } from './../../places.service';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-new-place',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewPlaceComponent implements OnInit {
 
-  constructor() { }
+  constructor(private placesService: PlacesService) { }
 
   ngOnInit() {
   }
 
+  onSubmit(form: NgForm){
+    this.placesService.addPlaceToDatabase(form.value)
+  }
 }

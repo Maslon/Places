@@ -1,30 +1,38 @@
 import { Injectable } from "@angular/core";
 import { Place } from "./place.model";
+import { AngularFirestore } from "@angular/fire/firestore"
+import { Subject, Subscription } from "rxjs";
 
 @Injectable({providedIn: "root"})
 
 export class PlacesService {
-    places: Place[] = [
-        {
-          name: "vidlakov",
-          description: "pesky",
-          picture: "https://www.milujemefotografii.cz/wp-content/uploads/2018/06/jak-fotit-krajinu-v-ruznych-podminkach-I-krajina-rano-vecer-i-v-noci-640x360.jpg",
-          finished: false
-        },
-        {
-          name: "vidlakwafwov",
-          description: "peskwfawfay",
-          picture: "https://www.milujemefotografii.cz/wp-content/uploads/2018/06/jak-fotit-krajinu-v-ruznych-podminkach-I-krajina-rano-vecer-i-v-noci-640x360.jpg",
-          finished: false
-        }
-    ]
+    places: Place[] = []
+    placesChanged = new Subject<Place[]>()
+    subscription: Subscription
 
-    getPlaces(){
-        return this.places.slice()
-    }
+    constructor(private db: AngularFirestore){}
+
+   
 
     getPlace(index){
         return this.places[index]
+    }
+
+    addPlaceToDatabase(place: Place){
+        this.addToDatabase("placesToGo" , {
+            ...place
+        })
+    }
+
+    fetchGoPlaces(){
+        this.subscription = this.db.collection("placesToGo").valueChanges().subscribe((places: Place[]) => {
+            this.places = places
+            this.placesChanged.next(this.places)
+        })
+    }
+
+    private addToDatabase(status, exercise){
+        this.db.collection(status).add(exercise)
     }
 }
 
