@@ -1,3 +1,4 @@
+import { AuthService } from './../../authentication/auth.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -7,13 +8,19 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   @Output() toggleSide = new EventEmitter<void>()
+  isAuthenticated = false
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.logState.subscribe(state => this.isAuthenticated = state)
   }
 
   onNavToggle(){
     this.toggleSide.emit()
+  }
+
+  onLogout(){
+    this.authService.logout()
   }
 }

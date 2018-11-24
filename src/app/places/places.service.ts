@@ -8,7 +8,7 @@ import { Subject, Subscription } from "rxjs";
 export class PlacesService {
     places: Place[] = []
     placesChanged = new Subject<Place[]>()
-    subscription: Subscription
+    placesSubs: Subscription[] = []
 
     constructor(private db: AngularFirestore){}
 
@@ -25,16 +25,20 @@ export class PlacesService {
     }
 
     fetchGoPlaces(){
-        this.subscription = this.db.collection("placesToGo").valueChanges().subscribe((places: Place[]) => {
+        this.placesSubs.push(this.db.collection("placesToGo").valueChanges().subscribe((places: Place[]) => {
             this.places = places
             this.placesChanged.next(this.places)
-        })
+        }))
     }
 
     deletePlace
 
     private addToDatabase(status, exercise){
         this.db.collection(status).add(exercise)
+    }
+
+    cancelPlaceSubs(){
+        this.placesSubs.forEach(sub => sub.unsubscribe)
     }
 }
 

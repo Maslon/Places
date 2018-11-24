@@ -1,0 +1,36 @@
+<section class="register-form">
+  <h1>Register</h1>
+  <form (ngSubmit)="onSubmit(f)"
+    #f="ngForm"
+    fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="2rem"
+  >
+    <mat-form-field>
+      <input
+      placeholder="Enter email"
+        type="email"
+        matInput
+        name="email"
+        email
+        #emailInput="ngModel"
+        required
+        ngModel>
+        <mat-error *ngIf="emailInput.hasError('required')">Invalid Email</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+      placeholder="Enter password"
+        type="password"
+        matInput
+        name="password"
+        password
+        #passInput="ngModel"
+        required
+        ngModel
+        minlength="6"
+        >
+        <mat-hint>{{ passInput.value?.length }} / 6</mat-hint>
+        <mat-error *ngIf="emailInput.hasError('minlength')">Password has to be at least 6 characters long</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="accent" [disabled]="f.invalid">Register</button>
+  </form>
+</section>

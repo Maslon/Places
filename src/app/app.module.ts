@@ -19,6 +19,9 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment.prod';
+import { RegisterComponent } from './authentication/register/register.component';
+import { LoginComponent } from './authentication/login/login.component';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import { environment } from 'src/environments/environment.prod';
     PlacesVisitedComponent,
     PlaceDetailComponent,
     HomeComponent,
-    NewPlaceComponent
+    NewPlaceComponent,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     FormsModule,
@@ -40,7 +45,8 @@ import { environment } from 'src/environments/environment.prod';
     FlexLayoutModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

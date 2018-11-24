@@ -7,6 +7,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class SideComponent implements OnInit {
   @Output() closeSide = new EventEmitter<void>()
+  isAuthenticated= false
+
 
   constructor() { }
 

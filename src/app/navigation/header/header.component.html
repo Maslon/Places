@@ -2,8 +2,11 @@
   <a routerLink="/" mat-icon-button><mat-icon>nature_people</mat-icon></a>
   <div fxHide.gt-xs><button mat-icon-button (click)="onNavToggle()"><mat-icon>menu</mat-icon></button></div>
   <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
-    <ul fxLayout>
-      <li><a routerLink="/places">Places</a></li>
+    <ul fxLayout fxLayoutGap="1rem">
+      <li *ngIf="!isAuthenticated"><a routerLink="/login">Login</a></li>
+      <li *ngIf="!isAuthenticated"><a routerLink="/register">Register</a></li>
+      <li *ngIf="isAuthenticated"><a routerLink="/places">Places</a></li>
+      <li *ngIf="isAuthenticated" (click)="onLogout()">Logout</li>
     </ul>
   </div>
 </mat-toolbar>
