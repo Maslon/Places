@@ -23,6 +23,11 @@ export class PlaceDetailComponent implements OnInit {
       this.place = this.placesService.getPlace(this.index)
     })
   }
+
+  onDelete(){
+    this.placesService.deletePlace(this.index)
+  }
+  
     
 
   

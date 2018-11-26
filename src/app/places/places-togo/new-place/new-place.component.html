@@ -1,7 +1,6 @@
 <section class="new-form">
   <h1>Add new place</h1>
-  <form (ngSubmit)="onSubmit(f)"
-    #f="ngForm"
+  <form [formGroup]="placesForm" (ngSubmit)="onSubmit()" #f
     fxLayout="column"
     fxLayoutAlign="center center"
     fxLayoutGap="15px"
@@ -10,26 +9,24 @@
       <input type="text"
         matInput
         placeholder="Name of the destination"
-        ngModel name="name"
-        required
+        formControlName="name"
       >
     </mat-form-field>
     <mat-form-field>
       <input type="text"
         matInput
         placeholder="Image URL"
-        ngModel name="image"
-        required
+        formControlName="image"
       >
     </mat-form-field>
     <mat-form-field>
         <input type="text"
           matInput
           placeholder="Description"
-          ngModel name="description"
-          required
+          formControlName="description"
         >
       </mat-form-field>
-      <button type="submit" [disabled]="f.invalid" mat-raised-button color="accent">Create new place</button>
+      <button type="submit" [disabled]="f.invalid" mat-raised-button color="accent" 
+      [textContent]="edit ? 'Edit place' : 'Create new place'"></button>
   </form>
 </section>

@@ -2,5 +2,8 @@
   <h1>{{ place.name }}</h1>
   <img src="{{ place.image }}" alt="{{ place.name }}">
   <p>{{ place.description }}</p>
-  <button mat-raised-button (click)="onClick()" color="primary">click</button>
+  <div>
+    <a mat-raised-button routerLink="edit" routerLinkActive="router-link-active"  color="primary">Edit</a>
+    <button mat-raised-button (click)="onDelete()" color="warn">Delete</button>  
+  </div>
 </div>

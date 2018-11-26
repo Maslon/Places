@@ -13,6 +13,7 @@ const routes: Routes = [
     { path: "places", component: PlacesComponent, canActivate: [AuthGuard]},
     { path: "places/new", component: NewPlaceComponent },
     { path: "places/:id", component: PlaceDetailComponent },
+    { path: "places/:id/edit", component: NewPlaceComponent},
     { path: "register", component: RegisterComponent },
     { path: "login", component: LoginComponent }
     

@@ -1,11 +1,12 @@
 
 <button mat-raised-button color="primary" (click)="onAdd()">New place</button>
 
-<app-places-togo  *ngFor="let place of places; let i = index"
-    [place]="place"
-    [index]="i"
-></app-places-togo>
-
+<div class="card-container"fxLayout="column" fxLayoutAlign="center center">
+    <app-places-togo  *ngFor="let place of places; let i = index"
+        [place]="place"
+        [index]="i"
+    ></app-places-togo>
+</div>
 <p>Last visited</p>
 
 
