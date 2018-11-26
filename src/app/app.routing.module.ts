@@ -1,3 +1,4 @@
+import { AuthGuard } from './authentication/auth-guard';
 import { LoginComponent } from './authentication/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { Routes, RouterModule } from "@angular/router"
@@ -9,7 +10,7 @@ import { RegisterComponent } from './authentication/register/register.component'
 
 const routes: Routes = [
     { path: "", component: HomeComponent},
-    { path: "places", component: PlacesComponent},
+    { path: "places", component: PlacesComponent, canActivate: [AuthGuard]},
     { path: "places/new", component: NewPlaceComponent },
     { path: "places/:id", component: PlaceDetailComponent },
     { path: "register", component: RegisterComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
+    providers: [AuthGuard]
 })
 
 export class AppRoutingModule {

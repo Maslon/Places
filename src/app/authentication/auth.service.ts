@@ -8,6 +8,7 @@ import { Subject } from "rxjs";
 @Injectable({providedIn: "root"})
 
 export class AuthService {
+    private isAuth = false
     logState = new Subject<boolean>()
 
     constructor(private afAuth: AngularFireAuth,
@@ -18,9 +19,11 @@ export class AuthService {
     initAuth(){
         this.afAuth.authState.subscribe(user => {
             if(user){
+                this.isAuth = true
                 this.logState.next(true)
                 this.router.navigate(["/places"])
             } else {
+                this.isAuth = false
                 this.logState.next(false)
                 this.router.navigate(["/"])
                 this.placesService.cancelPlaceSubs()
@@ -40,5 +43,9 @@ export class AuthService {
 
     logout(){
         this.afAuth.auth.signOut()
+    }
+
+    isAuthenticated(){
+        return this.isAuth
     }
 }
