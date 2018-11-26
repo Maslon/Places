@@ -1,5 +1,22 @@
-<mat-nav-list click="closeSideNav()">
-  <a [routerLink]="places" routerLinkActive="router-link-active">
-    Places
+<mat-nav-list (click)="closeSideNav()">
+  <a *ngIf="!isAuthenticated" mat-list-item routerLink="/login" routerLinkActive="router-link-active">
+    <mat-icon>person</mat-icon>
+    <span>Login</span>
   </a>
+  <a *ngIf="!isAuthenticated" mat-list-item routerLink="/register" routerLinkActive="router-link-active">
+    <mat-icon>group_add</mat-icon>
+    <span>Register</span>
+  </a>
+  <a *ngIf="isAuthenticated" mat-list-item routerLink="/places" routerLinkActive="router-link-active">
+    <mat-icon>navigation</mat-icon>
+    <span>Places</span>
+  </a>
+  <mat-list-item>
+    <button *ngIf="isAuthenticated" mat-icon-button class="side-nav-item">
+      <mat-icon>eject</mat-icon>
+      <span (click)="onLogout()">Logout</span>
+    </button>
+  </mat-list-item>
 </mat-nav-list>
+
+

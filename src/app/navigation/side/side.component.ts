@@ -1,3 +1,4 @@
+import { AuthService } from './../../authentication/auth.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -7,12 +8,12 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class SideComponent implements OnInit {
   @Output() closeSide = new EventEmitter<void>()
-  isAuthenticated= false
+  isAuthenticated = false
 
-
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.logState.subscribe(state => this.isAuthenticated = state)
   }
 
   closeSideNav(){
