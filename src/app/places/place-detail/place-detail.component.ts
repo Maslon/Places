@@ -21,6 +21,9 @@ export class PlaceDetailComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.index = params["id"]
       this.place = this.placesService.getPlace(this.index)
+      this.placesService.placesChanged.subscribe(places => {
+        this.place = places[this.index]
+      })
     })
   }
 

@@ -16,7 +16,8 @@ export class PlacesService {
 
     constructor(private db: AngularFirestore,
                 private afAuth: AngularFireAuth,
-                private router: Router){}
+                private router: Router,
+                private route: ActivatedRoute){}
 
 
     getPlace(index){
@@ -59,6 +60,9 @@ export class PlacesService {
             image: place.image,
             description: place.description
         })
+        this.placesChanged.next(this.places)
+
+
     }
 
     private addToDatabase(status, exercise){

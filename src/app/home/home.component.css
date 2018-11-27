@@ -1,0 +1,17 @@
+.background {
+    height: 91vh;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-image: url("https://images.pexels.com/photos/346885/pexels-photo-346885.jpeg");
+}
+
+h1, h2 {
+    top: 20px;
+    color: rgb(68, 65, 65);
+    position: relative;
+    margin: 0;
+    text-align: center;
+}
+
+
