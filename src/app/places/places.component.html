@@ -1,10 +1,8 @@
-<div class="button">
-    <button mat-raised-button color="primary" (click)="onAdd()">New place</button>
-</div>
-
-<div class="card-container"fxLayout="column" fxLayoutAlign="center center">
-    <app-places-togo  *ngFor="let place of places; let i = index"
-        [place]="place"
-        [index]="i"
-    ></app-places-togo>
-</div>
+<mat-tab-group>
+    <mat-tab label="Places To Go">
+        <app-places-togo></app-places-togo>
+    </mat-tab>
+    <mat-tab label="Places Visited">
+        <app-places-visited></app-places-visited>
+    </mat-tab>
+</mat-tab-group>

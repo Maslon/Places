@@ -1,0 +1,14 @@
+.card {
+    width: 100%;
+    margin-top: 15px;
+}
+
+@media(min-width: 600px){
+    .card{
+        width: 500px;
+    }
+}
+
+a {
+    text-decoration: none;
+}

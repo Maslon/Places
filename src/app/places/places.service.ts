@@ -9,10 +9,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Injectable({providedIn: "root"})
 
 export class PlacesService {
-    places: Place[] = []
+    placesTogo: Place[] = []
+    placesVisited: Place[] = []
     placesChanged = new Subject<Place[]>()
     placesSubs: Subscription[] = []
-    private userId: string
+    userId: string
 
     constructor(private db: AngularFirestore,
                 private afAuth: AngularFireAuth,
@@ -20,20 +21,33 @@ export class PlacesService {
                 private route: ActivatedRoute){}
 
 
-    getPlace(index){
-        return this.places[index]
+    getPlaceTogo(index){
+        return this.placesTogo[index]
     }
 
     addPlaceToDatabase(place: Place){
-        this.addToDatabase("placesToGo" , {
-            ...place,
-            ownedBy: this.userId
-        })
+        if(!place.finished){
+            this.addToDatabase("placesToGo" , {
+                ...place,
+                ownedBy: this.userId
+            })
+        } else {
+            this.addToDatabase("placesVisited", {
+                ...place
+            })
+        }
+    }
+
+    placeVisited(index){
+        this.placesTogo[index].finished = true
+        this.addPlaceToDatabase(this.placesTogo[index])
+        this.db.collection("placesToGo").doc(this.placesTogo[index].id).delete()
+
     }
 
     fetchGoPlaces(){
         this.afAuth.authState.subscribe(user => this.userId = user.uid)
-        this.placesSubs.push(this.db.collection("placesToGo")
+        this.placesSubs.push(this.db.collection("placesToGo", ref => ref.where("ownedBy", "==", this.userId))
         .snapshotChanges()
         .pipe(map((data) => {
             return data.map(item => {
@@ -44,29 +58,37 @@ export class PlacesService {
             })
         }))
         .subscribe((places: Place[]) => {
-            this.places = places.filter(place => place.ownedBy === this.userId)
-            this.placesChanged.next(this.places)
+            this.placesTogo = places
+            this.placesChanged.next(this.placesTogo)
         }))
     }
 
+    // fetchVisitedPlaces(){
+    //     this.afAuth.authState.subscribe(user => this.userId = user.uid)
+    //     this.placesSubs.push(this.db.collection("placesToGo").valueChanges()
+    //     .subscribe((places: Place[]) => {
+    //         this.placesVisited = places.filter(place =>> place.owned)
+    //     })
+    // }
+
     deletePlace(index){
-        this.db.collection("placesToGo").doc(this.places[index].id).delete()
+        this.db.collection("placesToGo").doc(this.placesTogo[index].id).delete()
         this.router.navigate(["/places"])
     }
 
     updatePlace(place, index){
-        this.db.collection("placesToGo").doc(this.places[index].id).update({
+        this.db.collection("placesToGo").doc(this.placesTogo[index].id).update({
             name: place.name,
             image: place.image,
             description: place.description
         })
-        this.placesChanged.next(this.places)
+        this.placesChanged.next(this.placesTogo)
 
 
     }
 
-    private addToDatabase(status, exercise){
-        this.db.collection(status).add(exercise)
+    private addToDatabase(status, place){
+        this.db.collection(status).add(place)
     }
 
     cancelPlaceSubs(){

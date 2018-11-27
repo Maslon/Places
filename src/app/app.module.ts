@@ -22,6 +22,7 @@ import { environment } from 'src/environments/environment.prod';
 import { RegisterComponent } from './authentication/register/register.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { PlaceItemComponent } from './places/place-item/place-item.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     HomeComponent,
     NewPlaceComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    PlaceItemComponent
   ],
   imports: [
     FormsModule,

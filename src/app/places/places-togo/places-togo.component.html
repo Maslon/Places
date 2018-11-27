@@ -1,12 +1,11 @@
-<a [routerLink]="[index]">
-    <mat-card class="card">
-        <mat-card-title>{{ place.name }}</mat-card-title>
-        <mat-card-content>{{ place.description }}</mat-card-content>
-        <img [src]="place.image" mat-card-image>
-        <mat-card-actions>
-            <button mat-raised-button color="accent">Detail</button>
-        </mat-card-actions>
-    </mat-card>            
-</a>
+<div class="button">
+    <button mat-raised-button color="primary" (click)="onAdd()">New place</button>
+</div>
 
+<div class="card-container"fxLayout="column" fxLayoutAlign="center center">
+    <app-place-item  *ngFor="let place of places; let i = index"
+        [place]="place"
+        [index]="i"
+    ></app-place-item>
+</div>
 

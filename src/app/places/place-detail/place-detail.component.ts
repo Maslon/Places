@@ -20,7 +20,7 @@ export class PlaceDetailComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       this.index = params["id"]
-      this.place = this.placesService.getPlace(this.index)
+      this.place = this.placesService.getPlaceTogo(this.index)
       this.placesService.placesChanged.subscribe(places => {
         this.place = places[this.index]
       })

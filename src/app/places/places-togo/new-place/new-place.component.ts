@@ -24,7 +24,7 @@ export class NewPlaceComponent implements OnInit {
       if(params["id"]){
         this.index = +params["id"]
         this.edit = true
-        this.place = this.placesService.getPlace(this.index)
+        this.place = this.placesService.getPlaceTogo(this.index)
       }
       this.initializeForm()
     })
