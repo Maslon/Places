@@ -13,13 +13,12 @@ export class PlacesVisitedComponent implements OnInit {
   subscription: Subscription
   places: Place[]  
 
-  constructor(private placesService: PlacesService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+  constructor(private placesService: PlacesService) { }
 
   ngOnInit() {
-    this.subscription = this.placesService.placesChanged.subscribe(places => this.places = places)
-    // this.placesService.fetchVisitedPlaces()
+    this.subscription = this.placesService.placesVisitedChanged.subscribe(places => this.places = places)
+    this.placesService.setId()
+    this.placesService.fetchVisitedPlaces()
   }
 
 

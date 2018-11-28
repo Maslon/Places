@@ -1,4 +1,5 @@
-<a [routerLink]="[index]">
+<a [routerLink]="[index]"
+   [queryParams]="{finished: isFinished ? 1 : 0}">
     <mat-card class="card">
         <mat-card-title>{{ place.name }}</mat-card-title>
         <img [src]="place.image" mat-card-image>

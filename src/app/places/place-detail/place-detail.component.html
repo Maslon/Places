@@ -1,9 +1,12 @@
+<button mat-raised-button color="accent" >Back</button>
+
 <div class="place" fxLayout="column" fxLayoutAlign="center center" >
   <h1>{{ place.name }}</h1>
   <img src="{{ place.image }}" alt="{{ place.name }}">
   <p>{{ place.description }}</p>
   <div>
     <a mat-raised-button routerLink="edit" routerLinkActive="router-link-active"  color="primary">Edit</a>
-    <button mat-raised-button (click)="onDelete()" color="warn">Delete</button>  
+    <button mat-raised-button (click)="onDelete()" color="warn">Delete</button>
+    <button mat-raised-button (click)="onVisited()" color="accent">Visited</button>  
   </div>
 </div>

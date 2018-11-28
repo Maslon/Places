@@ -4,31 +4,36 @@ import { Place } from "./place.model";
 import { AngularFirestore } from "@angular/fire/firestore"
 import { Subject, Subscription } from "rxjs";
 import { map } from "rxjs/operators"
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Injectable({providedIn: "root"})
 
 export class PlacesService {
     placesTogo: Place[] = []
     placesVisited: Place[] = []
-    placesChanged = new Subject<Place[]>()
+    placesTogoChanged = new Subject<Place[]>()
+    placesVisitedChanged = new Subject<Place[]>()
     placesSubs: Subscription[] = []
-    userId: string
+    private userId: string
 
     constructor(private db: AngularFirestore,
                 private afAuth: AngularFireAuth,
-                private router: Router,
-                private route: ActivatedRoute){}
+                private router: Router){}
 
 
     getPlaceTogo(index){
         return this.placesTogo[index]
     }
 
+    getVisitedPlace(index){
+        return this.placesVisited[index]
+    }
+
     addPlaceToDatabase(place: Place){
         if(!place.finished){
             this.addToDatabase("placesToGo" , {
                 ...place,
+                finished: false,
                 ownedBy: this.userId
             })
         } else {
@@ -42,11 +47,15 @@ export class PlacesService {
         this.placesTogo[index].finished = true
         this.addPlaceToDatabase(this.placesTogo[index])
         this.db.collection("placesToGo").doc(this.placesTogo[index].id).delete()
-
+        this.router.navigate(["/places"])
     }
 
-    fetchGoPlaces(){
+    setId(){
         this.afAuth.authState.subscribe(user => this.userId = user.uid)
+    }
+
+    async fetchGoPlaces(){
+        await this.setId()
         this.placesSubs.push(this.db.collection("placesToGo", ref => ref.where("ownedBy", "==", this.userId))
         .snapshotChanges()
         .pipe(map((data) => {
@@ -59,17 +68,19 @@ export class PlacesService {
         }))
         .subscribe((places: Place[]) => {
             this.placesTogo = places
-            this.placesChanged.next(this.placesTogo)
+            this.placesTogoChanged.next(this.placesTogo)
         }))
     }
 
-    // fetchVisitedPlaces(){
-    //     this.afAuth.authState.subscribe(user => this.userId = user.uid)
-    //     this.placesSubs.push(this.db.collection("placesToGo").valueChanges()
-    //     .subscribe((places: Place[]) => {
-    //         this.placesVisited = places.filter(place =>> place.owned)
-    //     })
-    // }
+    async fetchVisitedPlaces(){
+        await this.setId()
+        this.afAuth.authState.subscribe(user => this.userId = user.uid)
+        this.placesSubs.push(this.db.collection("placesVisited", ref => ref.where("ownedBy", "==", this.userId)).valueChanges()
+        .subscribe((places: Place[]) => {
+            this.placesVisited = places
+            this.placesVisitedChanged.next(this.placesVisited)
+        }))
+    }
 
     deletePlace(index){
         this.db.collection("placesToGo").doc(this.placesTogo[index].id).delete()
@@ -82,9 +93,7 @@ export class PlacesService {
             image: place.image,
             description: place.description
         })
-        this.placesChanged.next(this.placesTogo)
-
-
+        this.placesTogoChanged.next(this.placesTogo)
     }
 
     private addToDatabase(status, place){

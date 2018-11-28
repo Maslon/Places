@@ -8,11 +8,13 @@ import { Place } from '../place.model';
 })
 export class PlaceItemComponent implements OnInit {
   @Input() index: number;
-  @Input() place: Place
+  @Input() place: Place;
+  isFinished = false
 
   constructor() { }
 
   ngOnInit() {
+    this.isFinished = this.place.finished
   }
 
 }

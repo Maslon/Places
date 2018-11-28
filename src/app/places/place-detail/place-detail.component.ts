@@ -12,23 +12,43 @@ import { PlacesService } from '../places.service';
 export class PlaceDetailComponent implements OnInit {
   place: Place
   index: number;
+  isVisited: boolean = false
+  
   
 
   constructor(private route: ActivatedRoute,
               private placesService: PlacesService) { }
 
   ngOnInit() {
+    this.getQueryParams()
+    this.setPlace()
+    console.log(this.isVisited)
+  }
+
+  getQueryParams(){
+    this.route.queryParams.subscribe((queryParams: Params) => {
+      this.isVisited = queryParams["finished"] === "1" ? true : false
+    })
+  }
+
+  setPlace(){
     this.route.params.subscribe((params: Params) => {
       this.index = params["id"]
-      this.place = this.placesService.getPlaceTogo(this.index)
-      this.placesService.placesChanged.subscribe(places => {
-        this.place = places[this.index]
-      })
+      if(this.isVisited){
+        this.place = this.placesService.getVisitedPlace(this.index)
+      }
+       else {
+        this.place = this.placesService.getPlaceTogo(this.index)       
+      }
     })
   }
 
   onDelete(){
     this.placesService.deletePlace(this.index)
+  }
+
+  onVisited(){
+    this.placesService.placeVisited(this.index)
   }
   
     

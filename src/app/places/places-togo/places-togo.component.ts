@@ -18,9 +18,9 @@ export class PlacesTogoComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.subscription = this.placesService.placesChanged.subscribe(places => this.places = places)
+    this.subscription = this.placesService.placesTogoChanged.subscribe(places => this.places = places)
+    this.placesService.setId()
     this.placesService.fetchGoPlaces()
-
   }
 
   onAdd(){
