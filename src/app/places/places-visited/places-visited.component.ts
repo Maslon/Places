@@ -8,7 +8,7 @@ import { PlacesService } from '../places.service';
   templateUrl: './places-visited.component.html',
   styleUrls: ['./places-visited.component.css']
 })
-export class PlacesVisitedComponent implements OnInit, AfterViewInit {
+export class PlacesVisitedComponent implements OnInit {
   subscription: Subscription
   places: Place[]  
 
@@ -20,9 +20,6 @@ export class PlacesVisitedComponent implements OnInit, AfterViewInit {
     this.placesService.fetchVisitedPlaces()
   }
 
-  ngAfterViewInit(){
-    
-  }
 
   ngOnDestroy(){
     this.subscription.unsubscribe()
