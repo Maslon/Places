@@ -14,5 +14,9 @@ img {
 }
 
 button, a {
-    margin: 20px;
+    margin: 15px;
+}
+
+.button-group {
+    float: right;
 }
