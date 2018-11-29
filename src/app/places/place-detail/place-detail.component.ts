@@ -44,11 +44,15 @@ export class PlaceDetailComponent implements OnInit {
   }
 
   onDelete(){
-    this.placesService.deletePlace(this.index)
+    this.placesService.deletePlace(this.index, this.isVisited)
   }
 
   onVisited(){
     this.placesService.placeVisited(this.index)
+  }
+
+  onGoAgain(){
+    this.placesService.placeGoAgain(this.index)
   }
   
     

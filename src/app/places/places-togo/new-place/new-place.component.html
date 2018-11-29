@@ -1,5 +1,5 @@
 <section class="new-form">
-  <h1>Add new place</h1>
+  <h1 [textContent]="edit ? 'Edit place' : 'Create new place'"></h1>
   <form [formGroup]="placesForm" (ngSubmit)="onSubmit()" #f
     fxLayout="column"
     fxLayoutAlign="center center"

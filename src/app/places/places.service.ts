@@ -50,6 +50,15 @@ export class PlacesService {
         this.router.navigate(["/places"])
     }
 
+    placeGoAgain(index){
+        console.log(this.placesVisited[index])       
+        console.log(this.placesVisited[index].id) 
+        this.placesVisited[index].finished = false      
+        this.addPlaceToDatabase(this.placesVisited[index])
+        this.db.collection("placesVisited").doc(this.placesVisited[index].id).delete()
+        this.router.navigate(["/places"])
+    }
+
     setId(){
         this.afAuth.authState.subscribe(user => this.userId = user.uid)
     }
@@ -75,17 +84,32 @@ export class PlacesService {
     async fetchVisitedPlaces(){
         await this.setId()
         this.afAuth.authState.subscribe(user => this.userId = user.uid)
-        this.placesSubs.push(this.db.collection("placesVisited", ref => ref.where("ownedBy", "==", this.userId)).valueChanges()
+        this.placesSubs.push(this.db.collection("placesVisited", ref => ref.where("ownedBy", "==", this.userId))
+        .snapshotChanges()
+        .pipe(map((data) => {
+            return data.map(item => {
+                return {
+                    ...item.payload.doc.data(),
+                    id: item.payload.doc.id
+                }
+            })
+        }))
         .subscribe((places: Place[]) => {
             this.placesVisited = places
             this.placesVisitedChanged.next(this.placesVisited)
         }))
     }
 
-    deletePlace(index){
-        this.db.collection("placesToGo").doc(this.placesTogo[index].id).delete()
+    deletePlace(index, visited){
+        if(visited){
+            this.db.collection("placesVisited").doc(this.placesVisited[index].id).delete()
+        } else {
+            this.db.collection("placesToGo").doc(this.placesTogo[index].id).delete()
+        }
         this.router.navigate(["/places"])
+
     }
+
 
     updatePlace(place, index){
         this.db.collection("placesToGo").doc(this.placesTogo[index].id).update({

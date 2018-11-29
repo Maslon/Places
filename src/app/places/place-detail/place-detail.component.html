@@ -1,4 +1,4 @@
-<button mat-raised-button color="accent" >Back</button>
+<button mat-raised-button color="accent" routerLink="..">Back</button>
 
 <div class="place" fxLayout="column" fxLayoutAlign="center center" >
   <h1>{{ place.name }}</h1>
@@ -7,6 +7,7 @@
   <div>
     <a mat-raised-button routerLink="edit" routerLinkActive="router-link-active"  color="primary">Edit</a>
     <button mat-raised-button (click)="onDelete()" color="warn">Delete</button>
-    <button mat-raised-button (click)="onVisited()" color="accent">Visited</button>  
+    <button *ngIf="!isVisited" mat-raised-button (click)="onVisited()" color="accent">Visited</button>
+    <button *ngIf="isVisited" mat-raised-button (click)="onGoAgain()" color="accent">Go again</button>
   </div>
 </div>

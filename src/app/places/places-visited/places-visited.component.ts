@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Place } from '../place.model';
 import { PlacesService } from '../places.service';
-import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-places-visited',
   templateUrl: './places-visited.component.html',
   styleUrls: ['./places-visited.component.css']
 })
-export class PlacesVisitedComponent implements OnInit {
+export class PlacesVisitedComponent implements OnInit, AfterViewInit {
   subscription: Subscription
   places: Place[]  
 
@@ -21,7 +20,9 @@ export class PlacesVisitedComponent implements OnInit {
     this.placesService.fetchVisitedPlaces()
   }
 
-
+  ngAfterViewInit(){
+    
+  }
 
   ngOnDestroy(){
     this.subscription.unsubscribe()
