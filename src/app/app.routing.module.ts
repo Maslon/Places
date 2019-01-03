@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { PlaceDetailComponent } from './places/place-detail/place-detail.component';
 import { NewPlaceComponent } from './places/places-togo/new-place/new-place.component';
 import { RegisterComponent } from './authentication/register/register.component';
+import { MapComponent } from './map/map.component';
 
 const routes: Routes = [
     { path: "", component: HomeComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
     { path: "places/:id", component: PlaceDetailComponent },
     { path: "places/:id/edit", component: NewPlaceComponent},
     { path: "register", component: RegisterComponent },
-    { path: "login", component: LoginComponent }
+    { path: "login", component: LoginComponent },
+    { path: "map", component: MapComponent}
     
 ]
 
