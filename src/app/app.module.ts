@@ -1,4 +1,3 @@
-
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
 import { NgModule } from '@angular/core';
@@ -23,6 +22,8 @@ import { RegisterComponent } from './authentication/register/register.component'
 import { LoginComponent } from './authentication/login/login.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { PlaceItemComponent } from './places/place-item/place-item.component';
+import { MapComponent } from './places/map/map.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet'
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { PlaceItemComponent } from './places/place-item/place-item.component';
     NewPlaceComponent,
     RegisterComponent,
     LoginComponent,
-    PlaceItemComponent
+    PlaceItemComponent,
+    MapComponent
   ],
   imports: [
     FormsModule,
@@ -49,7 +51,8 @@ import { PlaceItemComponent } from './places/place-item/place-item.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LeafletModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
