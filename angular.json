@@ -27,9 +27,15 @@
                 "input": "src/my-theme.scss"
               },
               "src/styles.css",
-              "./node_modules/leaflet/dist/leaflet.css"
+              "./node_modules/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css",
+              "./node_modules/leaflet/dist/leaflet.css",
+              "./node_modules/leaflet-search/dist/leaflet-search.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/leaflet/dist/leaflet.js",
+              "./node_modules/esri-leaflet/dist/esri-leaflet.js",
+              "./node_modules/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -84,9 +90,12 @@
             "karmaConfig": "src/karma.conf.js",
             "styles": [
               "src/styles.css",
-              "./node_modules/leaflet/dist/leaflet.css"
+              "./node_modules/leaflet/dist/leaflet.css",
+              "./node_modules/leaflet-search/dist/leaflet-search.min.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "./node_modules/leaflet/dist/leaflet.js"
+            ],
             "assets": [
               {
                 "glob": "**/*",
