@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { tileLayer, latLng } from 'leaflet';
 // import "leaflet-search"
 // import * as leafletSearch from "leaflet-search"
 // import * as L from 'leaflet'
+import "leaflet"
 declare let L
+// import * as L from 'leaflet'
 import "leaflet-search"
+// import "esri-leaflet"
+import * as esri from "esri-leaflet"
+// import "esri-leaflet-geocoder"
+import * as esrigeo from "esri-leaflet-geocoder"
+
 
 
 
@@ -15,7 +21,6 @@ import "leaflet-search"
 })
 export class MapComponent implements OnInit {
   // searchLayer
-  
 
   // options = {
   //   layers: [
@@ -30,7 +35,14 @@ export class MapComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    const map = L.map('map').setView([51.505, -0.09], 13)
+    console.log(L)
+    console.log(esri)
+    console.log(esrigeo)
+
+    // console.log(esri)
+    // console.log(esrigeo)
+
+    let map = L.map('map').setView([51.505, -0.09], 13)
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -41,16 +53,16 @@ export class MapComponent implements OnInit {
 
 // Create a Tile Layer and add it to the map
 //var tiles = new L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png').addTo(map);
-  var searchControl = new L.esri.Controls.Geosearch().addTo(map);
+  let searchControl = new esrigeo.Geosearch().addTo(map);
 
-  var results = new L.LayerGroup().addTo(map);
-
+  const results = new L.LayerGroup().addTo(map);
   searchControl.on('results', function(data){
     results.clearLayers();
-    for (var i = data.results.length - 1; i >= 0; i--) {
+    for (let i = data.results.length - 1; i >= 0; i--) {
       results.addLayer(L.marker(data.results[i].latlng));
     }
   });
+  console.log(esri)
 
   }
 
