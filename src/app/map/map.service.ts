@@ -1,3 +1,4 @@
+import { PlacesService } from './../places/places.service';
 import { Place } from './../places/place.model';
 import { Injectable } from "@angular/core";
 import wiki from "wikijs"
@@ -7,44 +8,55 @@ import wiki from "wikijs"
 export class MapService{
     cityName: string
     city: Place
+    randomImages: string[] = []
+
+    constructor(private placesService: PlacesService){}
     
 
     getCityName(name){
         this.cityName = name.split(/[, -]/)[0]
     }
 
-    getMainImageName(){
-        return wiki().page(this.cityName)
-        .then(page => page.fullInfo())
-        .then((result: any) => result.general.imageSkyline)
-    }
 
-    getImages(){
+    fetchImages(){
         return wiki().page(this.cityName)
         .then(page => page.images())
-        .then(results => results)
+        .then(results => results.filter(image => image.includes(this.cityName) && image.includes("jpg")))
     }
 
-    async getMainImage(){
-        const images = await this.getImages()
-        const mainImageName = await this.getMainImageName()
-        const imageNameArr = mainImageName.split(" ")
-        let mainImage
+    
 
-        images.forEach(image => {
-            if(image.includes(imageNameArr[imageNameArr.length - 1]) &&  image.includes(imageNameArr[imageNameArr.length - 2])) {
-                mainImage = image
+    async getRandomImages(){
+        const images = await this.fetchImages()
+        console.log("images", images)
+        if(images.length >= 10){
+            for(let i = 0; i < 10; i++){
+                const ind = Math.floor(Math.random() * images.length)
+                this.randomImages.push(images[ind])
+                images.splice(ind, 1)
             }
-        })
-
-        console.log(mainImageName)
-        console.log(images)
-        console.log(imageNameArr)
-        console.log(mainImage)
-
+        } else {
+            for(let i = 0; i <= images.length; i++){
+                const ind = Math.floor(Math.random() * images.length)
+                this.randomImages.push(images[ind])
+                images.splice(ind, 1)
+            }    
+        }
     }
 
     async setCityData(){
-
+        await this.getRandomImages()
+        console.log("random images", this.randomImages)
     }
+
+    createCity(){
+        this.placesService.addPlaceToDatabase({
+            name: this.cityName,
+            images: this.randomImages,
+            description: "brrrap"
+        })
+    }
+
+
+
 }

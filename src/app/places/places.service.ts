@@ -29,7 +29,8 @@ export class PlacesService {
         return this.placesVisited[index]
     }
 
-    addPlaceToDatabase(place: Place){
+    async addPlaceToDatabase(place: Place){
+        await this.setId()
         if(!place.finished){
             this.addToDatabase("placesToGo" , {
                 ...place,

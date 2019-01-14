@@ -21,7 +21,7 @@ export class AuthService {
             if(user){
                 this.isAuth = true
                 this.logState.next(true)
-                this.router.navigate(["/places"])
+                this.router.navigate(["/map"])
             } else {
                 this.isAuth = false
                 this.logState.next(false)

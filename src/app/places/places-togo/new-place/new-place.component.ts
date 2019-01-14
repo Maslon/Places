@@ -38,7 +38,7 @@ export class NewPlaceComponent implements OnInit {
 
     if(this.edit){
       name = this.place.name
-      image = this.place.image
+      // image = this.place.images
       desc = this.place.description
     }
 
