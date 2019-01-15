@@ -8,6 +8,10 @@
 
 <div class="place" fxLayout="column" fxLayoutAlign="center center" >
   <h1>{{ place.name }}</h1>
-  <img src="{{ place.image }}" alt="{{ place.name }}">
+  <div *ngFor="let image of place.images; let i = index">
+    <img src="{{ image }}" alt="{{ image }}" *ngIf="i === imageIndex">
+  </div>
+  <button (click)="nextImg()">Next</button>
+  <button (click)="prevImg()">Prev</button>
   <p>{{ place.description }}</p>
 </div>
