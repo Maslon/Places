@@ -24,6 +24,9 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 })
 export class PlaceDetailComponent implements OnInit {
   // state = "not-selected"
+  time = false
+  imageLoaded = false
+  imgSrc
   imageIndex: number
   place: Place
   index: number;
@@ -42,15 +45,31 @@ export class PlaceDetailComponent implements OnInit {
     console.log(this.isVisited)
   }
 
+  timeout(){
+    setTimeout(() => this.time = true, 200)
+  }
+  
+
+  onImageLoad(e){
+    this.imageLoaded = true
+    console.log(e)
+  }
+
   nextImg(){
     this.imageIndex++
     this.imageIndex > this.place.images.length - 1 ?  this.imageIndex = 0 : null
     this.animated = true
+    this.imageLoaded = false
+    this.time = false
+    this.timeout()
   }
 
   prevImg(){
     this.imageIndex--
     this.imageIndex === -1 ? this.imageIndex = this.place.images.length - 1 : null
+    this.imageLoaded = false
+    this.time = false
+    this.timeout()
   }
 
 

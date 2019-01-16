@@ -8,10 +8,19 @@
 
 <div class="place" fxLayout="column" fxLayoutAlign="center center" >
   <h1>{{ place.name }}</h1>
-  <div *ngFor="let image of place.images; let i = index">
-    <img src="{{ image }}" alt="{{ image }}" *ngIf="i === imageIndex">
+  <div [ngClass]="{'lds-dual-ring': time}" *ngIf="!imageLoaded; else img"></div>
+  <div  [ngClass]="{'img-container': i === imageIndex}" *ngFor="let image of place.images; let i = index">
+    <img #img src="{{ image }}" alt="{{ image }}" *ngIf="i === imageIndex"
+      (load)="onImageLoad()"
+      [ngClass]="{shown: imageLoaded}"
+    >    
   </div>
-  <button (click)="nextImg()">Next</button>
-  <button (click)="prevImg()">Prev</button>
+  <div class="img-buttons">
+    <button class="img-button" (click)="prevImg()">Prev</button>
+    <button class="img-button" (click)="nextImg()">Next</button>
+  </div>
   <p>{{ place.description }}</p>
 </div>
+
+
+<!-- [ngStyle]="{visibility: imageLoaded ? 'visible' : 'hidden'}" -->
