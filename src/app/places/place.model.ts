@@ -6,3 +6,4 @@ export interface Place {
     ownedBy?: string,
     id: string
 }
+

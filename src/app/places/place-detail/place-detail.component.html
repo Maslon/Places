@@ -16,8 +16,13 @@
     >    
   </div>
   <div class="img-buttons">
-    <button class="img-button" (click)="prevImg()">Prev</button>
-    <button class="img-button" (click)="nextImg()">Next</button>
+    <button class="img-button" mat-icon-button color="accent" (click)="prevImg()">
+      <mat-icon>arrow_left</mat-icon>
+      Prev</button>
+    <button class="img-button" mat-icon-button color="accent" (click)="nextImg()">
+      Next
+      <mat-icon>arrow_right</mat-icon>
+    </button>
   </div>
   <p>{{ place.description }}</p>
 </div>

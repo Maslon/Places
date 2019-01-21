@@ -6,9 +6,22 @@ button {
 .button {
     text-align: center;
 }
+.card-container {
+    width: 100%;
+}
 
 @media(min-width: 600px){
     button {
         width: 500px
     }
-}    
+    .card-container {
+        width: 500px;
+        margin: 0 auto;
+    }
+}
+
+app-place-item {
+    width: 100%;
+}
+
+

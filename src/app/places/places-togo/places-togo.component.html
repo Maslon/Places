@@ -2,7 +2,7 @@
     <button mat-raised-button color="primary" (click)="onAdd()">New place</button>
 </div>
 
-<div class="card-container"fxLayout="column" fxLayoutAlign="center center">
+<div class="card-container" fxLayout="column" fxLayoutAlign="center center">
     <app-place-item  *ngFor="let place of places; let i = index"
         [place]="place"
         [index]="i"

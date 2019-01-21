@@ -8,7 +8,7 @@ import wiki from "wikijs"
 export class MapService{
     cityName: string
     city: Place
-    randomImages: string[] = []
+    
 
     constructor(private placesService: PlacesService){}
     
@@ -28,33 +28,40 @@ export class MapService{
 
     async getRandomImages(){
         const images = await this.fetchImages()
+        const randomImages = []
         console.log("images", images)
         if(images.length >= 10){
             for(let i = 0; i < 10; i++){
                 const ind = Math.floor(Math.random() * images.length)
-                this.randomImages.push(images[ind])
+                randomImages.push(images[ind])
                 images.splice(ind, 1)
             }
         } else {
             for(let i = 0; i <= images.length; i++){
                 const ind = Math.floor(Math.random() * images.length)
-                this.randomImages.push(images[ind])
+                randomImages.push(images[ind])
                 images.splice(ind, 1)
             }    
         }
+        return randomImages
     }
 
     async setCityData(){
         await this.getRandomImages()
-        console.log("random images", this.randomImages)
+        console.log("random images", this.getRandomImages())
     }
 
-    createCity(){
-        this.placesService.addPlaceToDatabase({
-            name: this.cityName,
-            images: this.randomImages,
-            description: "brrrap"
-        })
+    async createCity(){
+        if(!this.cityName){
+            alert("pick a city")
+        } else {
+            this.placesService.addPlaceToDatabase({
+                name: this.cityName,
+                images: await this.getRandomImages(),
+                description: "brrrap"
+            })
+            this.cityName = null;    
+        }
     }
 
 

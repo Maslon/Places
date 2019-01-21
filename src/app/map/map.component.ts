@@ -35,9 +35,7 @@ export class MapComponent implements OnInit {
     searchControl.on('results', (data) => {
       console.log(data)
       this.mapService.getCityName(data.text)
-      // this.mapService.getMainImageName()
       this.mapService.fetchImages()
-      // this.mapService.getMainImage()
       this.mapService.setCityData()
       results.clearLayers();
       for (let i = data.results.length - 1; i >= 0; i--) {
