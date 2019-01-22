@@ -3,6 +3,9 @@
     margin-top: 15px;
 }
 
+.place {
+    cursor: pointer;
+}
 
 @media(min-width: 600px){
     .card{

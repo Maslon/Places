@@ -14,7 +14,6 @@ import { PlacesVisitedComponent } from './places/places-visited/places-visited.c
 import { PlaceDetailComponent } from './places/place-detail/place-detail.component';
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from './app.routing.module';
-import { NewPlaceComponent } from './places/places-togo/new-place/new-place.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -35,7 +34,6 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet'
     PlacesVisitedComponent,
     PlaceDetailComponent,
     HomeComponent,
-    NewPlaceComponent,
     RegisterComponent,
     LoginComponent,
     PlaceItemComponent,

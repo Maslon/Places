@@ -23,10 +23,6 @@ export class PlacesTogoComponent implements OnInit {
     this.placesService.fetchGoPlaces()
   }
 
-  onAdd(){
-    this.router.navigate(["new"], {relativeTo: this.route})
-  }
-
   ngOnDestroy(){
     this.subscription.unsubscribe()
   }

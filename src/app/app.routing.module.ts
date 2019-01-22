@@ -5,16 +5,13 @@ import { Routes, RouterModule } from "@angular/router"
 import { PlacesComponent } from './places/places.component';
 import { NgModule } from '@angular/core';
 import { PlaceDetailComponent } from './places/place-detail/place-detail.component';
-import { NewPlaceComponent } from './places/places-togo/new-place/new-place.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import { MapComponent } from './map/map.component';
 
 const routes: Routes = [
     { path: "", component: HomeComponent},
     { path: "places", component: PlacesComponent, canActivate: [AuthGuard]},
-    { path: "places/new", component: NewPlaceComponent },
     { path: "places/:id", component: PlaceDetailComponent },
-    { path: "places/:id/edit", component: NewPlaceComponent},
     { path: "register", component: RegisterComponent },
     { path: "login", component: LoginComponent },
     { path: "map", component: MapComponent}

@@ -1,9 +1,11 @@
 #map {
-    height: 100vh;
+    height: calc(100vh - 56px);
     padding: 0;
 }
 
-.add{
-  font-size: 50px;
-  padding: 10rem;
-}     
+@media(min-width: 600px){
+  #map {
+    height: calc(100vh - 72px)
+  }
+}
+
