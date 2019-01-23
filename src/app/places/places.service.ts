@@ -30,7 +30,7 @@ export class PlacesService {
     }
 
     async addPlaceToDatabase(place){
-        await this.setId()
+        await this.setPlaces()
         if(!place.finished){
             this.addToDatabase("placesToGo" , {
                 ...place,
@@ -60,12 +60,15 @@ export class PlacesService {
         this.router.navigate(["/places"])
     }
 
-    setId(){
-        this.afAuth.authState.subscribe(user => this.userId = user.uid)
+    setPlaces(){
+        this.afAuth.authState.subscribe(user => {
+            this.userId = user.uid
+            this.fetchGoPlaces()
+            this.fetchVisitedPlaces()
+        })
     }
 
-    async fetchGoPlaces(){
-        await this.setId()
+    fetchGoPlaces(){
         this.placesSubs.push(this.db.collection("placesToGo", ref => ref.where("ownedBy", "==", this.userId))
         .snapshotChanges()
         .pipe(map((data) => {
@@ -82,8 +85,7 @@ export class PlacesService {
         }))
     }
 
-    async fetchVisitedPlaces(){
-        await this.setId()
+    fetchVisitedPlaces(){
         this.afAuth.authState.subscribe(user => this.userId = user.uid)
         this.placesSubs.push(this.db.collection("placesVisited", ref => ref.where("ownedBy", "==", this.userId))
         .snapshotChanges()
@@ -125,8 +127,10 @@ export class PlacesService {
         this.db.collection(status).add(place)
     }
 
+  
+
     cancelPlaceSubs(){
-        this.placesSubs.forEach(sub => sub.unsubscribe)
+        this.placesSubs.forEach(sub => sub.unsubscribe())
     }
 }
 

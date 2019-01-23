@@ -16,8 +16,8 @@ export class PlacesVisitedComponent implements OnInit {
 
   ngOnInit() {
     this.subscription = this.placesService.placesVisitedChanged.subscribe(places => this.places = places)
-    this.placesService.setId()
-    this.placesService.fetchVisitedPlaces()
+    this.placesService.setPlaces()
+    // this.placesService.fetchVisitedPlaces()
   }
 
 

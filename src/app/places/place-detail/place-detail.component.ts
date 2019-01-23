@@ -52,7 +52,6 @@ export class PlaceDetailComponent implements OnInit {
 
   onImageLoad(e){
     this.imageLoaded = true
-    console.log(e)
   }
 
   nextImg(){
