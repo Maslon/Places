@@ -81,7 +81,7 @@ export class PlacesService {
         }))
         .subscribe((places: Place[]) => {
             this.placesTogo = places
-            this.placesTogoChanged.next([...this.placesTogo])
+            this.placesTogoChanged.next(this.placesTogo)
         }))
     }
 
@@ -99,7 +99,7 @@ export class PlacesService {
         }))
         .subscribe((places: Place[]) => {
             this.placesVisited = places
-            this.placesVisitedChanged.next([...this.placesVisited])
+            this.placesVisitedChanged.next(this.placesVisited)
         }))
     }
 

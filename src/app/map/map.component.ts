@@ -7,6 +7,7 @@ import * as esrigeo from "esri-leaflet-geocoder"
 import "leaflet-easybutton"
 import { MapIcons } from './map-icons.service';
 import { PlacesService } from '../places/places.service';
+import { Router, Params } from '@angular/router';
 
 
 
@@ -19,15 +20,16 @@ import { PlacesService } from '../places/places.service';
 export class MapComponent implements OnInit, OnDestroy {
   map
   searchedCity: string
-  togoCoor = []
-  visitedCoor = []
+  // togoCoor = []
+  // visitedCoor = []
   placesTogoSubscription: Subscription
   placesVisitedSubscription: Subscription
   searchControl
 
   constructor(private mapService: MapService,
               private iconsService: MapIcons,
-              private placesService: PlacesService) { }
+              private placesService: PlacesService,
+              private router: Router) { }
 
   ngOnInit() {
     this.map = L.map('map').setView([51.505, -0.09], 5)
@@ -39,21 +41,44 @@ export class MapComponent implements OnInit, OnDestroy {
     
   }
 
+  // addMarkers(){
+  //   this.placesTogoSubscription = this.placesService.placesTogoChanged.subscribe(places => {
+  //     places.forEach(place => this.togoCoor.push(place.coordinates))
+  //     this.togoCoor.forEach(latlng => L.marker(latlng, {icon: this.iconsService.redIcon}).addTo(this.map).bindPopup(String(...latlng)))
+  //   })
+  //   this.placesVisitedSubscription =  this.placesService.placesVisitedChanged.subscribe(places => {
+  //     places.forEach(place => this.visitedCoor.push(place.coordinates))
+  //     this.visitedCoor.forEach(latlng => L.marker(latlng, {icon: this.iconsService.greenIcon}).addTo(this.map))
+  //   })
+  // }
+
   addMarkers(){
     this.placesTogoSubscription = this.placesService.placesTogoChanged.subscribe(places => {
-      places.forEach(place => this.togoCoor.push(place.coordinates))
-      this.togoCoor.forEach(latlng => L.marker(latlng, {icon: this.iconsService.redIcon}).addTo(this.map))
+      places.forEach((place, index ) => {
+        L.marker(place.coordinates, {icon: this.iconsService.redIcon}).addTo(this.map).on("click", () => {
+          this.router.navigate(["/places", index], {queryParams:{finished : place.finished ? 1 : 0}})
+        })      
+      })
     })
-    this.placesVisitedSubscription =  this.placesService.placesVisitedChanged.subscribe(places => {
-      places.forEach(place => this.visitedCoor.push(place.coordinates))
-      this.visitedCoor.forEach(latlng => L.marker(latlng, {icon: this.iconsService.greenIcon}).addTo(this.map))
+    this.placesVisitedSubscription = this.placesService.placesVisitedChanged.subscribe(places => {
+      places.forEach((place, index)=> {
+        L.marker(place.coordinates, {icon: this.iconsService.greenIcon}).addTo(this.map).on("click", () => {
+          this.router.navigate(["/places", index], {queryParams:{finished : place.finished ? 1 : 0}})
+        })        
+      })
     })
   }
+
+  // [queryParams]="{finished: isFinished ? 1 : 0}"
+
+  // onMarkerClick(){
+  //   console.log(place)
+  // }
 
   addMapLayer(){
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(this.map);
+    }).addTo(this.map)
   }
 
   addMapControls(){
