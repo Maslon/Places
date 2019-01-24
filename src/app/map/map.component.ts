@@ -20,7 +20,10 @@ export class MapComponent implements OnInit, OnDestroy {
   map
   searchedCity: string
   togoCoor = []
+  visitedCoor = []
   placesTogoSubscription: Subscription
+  placesVisitedSubscription: Subscription
+  searchControl
 
   constructor(private mapService: MapService,
               private iconsService: MapIcons,
@@ -28,40 +31,48 @@ export class MapComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.map = L.map('map').setView([51.505, -0.09], 5)
+    this.addMarkers()
+    this.placesService.setPlaces()
+    this.addMapLayer()
+    this.addMapControls()    
+    this.onSearch()
+    
+  }
+
+  addMarkers(){
     this.placesTogoSubscription = this.placesService.placesTogoChanged.subscribe(places => {
       places.forEach(place => this.togoCoor.push(place.coordinates))
-      console.log(this.togoCoor)
       this.togoCoor.forEach(latlng => L.marker(latlng, {icon: this.iconsService.redIcon}).addTo(this.map))
-      console.log(this.togoCoor)
     })
-    this.placesService.setPlaces()
-    // this.placesService.fetchGoPlaces()
-    
-    //map layer
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(this.map);
+    this.placesVisitedSubscription =  this.placesService.placesVisitedChanged.subscribe(places => {
+      places.forEach(place => this.visitedCoor.push(place.coordinates))
+      this.visitedCoor.forEach(latlng => L.marker(latlng, {icon: this.iconsService.greenIcon}).addTo(this.map))
+    })
+  }
 
-    //left side controls    
+  addMapLayer(){
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(this.map);
+  }
+
+  addMapControls(){
     L.control.scale().addTo(this.map);
     L.easyButton("<span class='add'>Add selected city to your cities</span>", () => {
       this.mapService.createCity()
     }).addTo(this.map)
-    let searchControl = new esrigeo.Geosearch().addTo(this.map);
+    this.searchControl = new esrigeo.Geosearch().addTo(this.map);
+  }
 
-    //on search
+  onSearch(){
     const results = new L.LayerGroup().addTo(this.map);
-    searchControl.on('results', (data) => {
-      console.log(data)
-      this.mapService.getCityName(data.text)
-      this.mapService.fetchImages()
-      this.mapService.setCityData()
-      this.mapService.getCoordinates(data.latlng)
+    this.searchControl.on('results', (data) => {
+      this.mapService.getCityData(data.text, data.latlng)
       results.clearLayers();
       for (let i = data.results.length - 1; i >= 0; i--) {
         results.addLayer(L.marker(data.results[i].latlng, {icon: this.iconsService.blueIcon}));
       }
-    });
+    })
   }
 
   ngOnDestroy(){

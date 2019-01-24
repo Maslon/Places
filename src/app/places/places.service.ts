@@ -81,7 +81,7 @@ export class PlacesService {
         }))
         .subscribe((places: Place[]) => {
             this.placesTogo = places
-            this.placesTogoChanged.next(this.placesTogo)
+            this.placesTogoChanged.next([...this.placesTogo])
         }))
     }
 
@@ -99,7 +99,7 @@ export class PlacesService {
         }))
         .subscribe((places: Place[]) => {
             this.placesVisited = places
-            this.placesVisitedChanged.next(this.placesVisited)
+            this.placesVisitedChanged.next([...this.placesVisited])
         }))
     }
 
@@ -114,14 +114,14 @@ export class PlacesService {
     }
 
 
-    updatePlace(place, index){
-        this.db.collection("placesToGo").doc(this.placesTogo[index].id).update({
-            name: place.name,
-            image: place.image,
-            description: place.description
-        })
-        this.placesTogoChanged.next(this.placesTogo)
-    }
+    // updatePlace(place, index){
+    //     this.db.collection("placesToGo").doc(this.placesTogo[index].id).update({
+    //         name: place.name,
+    //         image: place.image,
+    //         description: place.description
+    //     })
+    //     this.placesTogoChanged.next(this.placesTogo)
+    // }
 
     private addToDatabase(status, place){
         this.db.collection(status).add(place)

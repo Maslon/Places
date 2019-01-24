@@ -51,9 +51,11 @@ export class MapService{
         return randomImages
     }
 
-    async setCityData(){
-        await this.getRandomImages()
-        // console.log("random images", this.getRandomImages())
+    getCityData(text, latlng){
+        this.getCityName(text)
+        this.fetchImages()
+        this.getCoordinates(latlng)
+        
     }
 
     async createCity(){
