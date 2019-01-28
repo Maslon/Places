@@ -8,12 +8,14 @@
 
 <div class="place" fxLayout="column" fxLayoutAlign="center center" >
   <h1>{{ place.name }}</h1>
-  <div [ngClass]="{'lds-dual-ring': time}" *ngIf="!imageLoaded; else img"></div>
-  <div  [ngClass]="{'img-container': i === imageIndex}" *ngFor="let image of place.images; let i = index">
-    <img #img src="{{ image }}" alt="{{ image }}" *ngIf="i === imageIndex"
-      (load)="onImageLoad()"
-      [ngClass]="{shown: imageLoaded}"
-    >    
+  <div class="img-wait"> 
+    <div [ngClass]="{'lds-dual-ring': time}" *ngIf="!imageLoaded; else img"></div> 
+    <div #img [ngClass]="{'img-container': i === imageIndex}" *ngFor="let image of place.images; let i = index">
+      <img  src="{{ image }}" alt="{{ image }}" *ngIf="i === imageIndex"
+        (load)="onImageLoad()"
+        [ngClass]="{shown: imageLoaded}"
+      >    
+    </div>
   </div>
   <div class="img-buttons">
     <button class="img-button" mat-icon-button color="accent" (click)="prevImg()">
@@ -24,7 +26,13 @@
       <mat-icon>arrow_right</mat-icon>
     </button>
   </div>
-  <p>{{ place.description }}</p>
+  <!-- <div class="desc-container" (click)="showDesc()"> -->
+  <div class="desc-container" (click)="showDesc()">
+    <h1>Description</h1>
+    <!-- <p  class="description" [ngClass]="{visible: descriptionShown}">{{ place.description }}</p>    -->
+  </div>
+  <p [@descState]="state">{{ place.description }}</p>   
+
 </div>
 
 

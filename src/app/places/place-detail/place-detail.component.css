@@ -23,6 +23,12 @@ img {
     
 }
 
+.img-wait {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .shown {
     visibility: visible;
     /* display: block; */
@@ -77,6 +83,26 @@ button, a {
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.desc-container {
+    padding: 0.5rem;
+    width: 100%;
+    z-index: 10;
+    background-color: lightblue;
+}
+
+.visible {
+    display: block;
+    /* transform: translate3d(0, 0, 0) */
+
+    
+}
+
+.description {
+    display: none;
+    /* transform: translate3d(0, 200px, 0); */
+    transition: all 1s ease-in;    
 }
 
 

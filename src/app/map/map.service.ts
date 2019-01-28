@@ -2,6 +2,7 @@ import { PlacesService } from './../places/places.service';
 import { Place } from './../places/place.model';
 import { Injectable } from "@angular/core";
 import wiki from "wikijs"
+import WikiJS from 'wikijs';
 
 @Injectable({providedIn: "root"})
 
@@ -54,8 +55,13 @@ export class MapService{
     getCityData(text, latlng){
         this.getCityName(text)
         this.fetchImages()
-        this.getCoordinates(latlng)
-        
+        this.getCoordinates(latlng)      
+    }
+
+    getCitySummary(){
+        return wiki().page(this.cityName)
+            .then(page => page.summary())
+            .then(result => result)
     }
 
     async createCity(){
@@ -65,7 +71,7 @@ export class MapService{
             this.placesService.addPlaceToDatabase({
                 name: this.cityName,
                 images: await this.getRandomImages(),
-                description: "brrrap",
+                description: await this.getCitySummary(),
                 coordinates: this.cityCoordinates
             })
             this.cityName = null;    

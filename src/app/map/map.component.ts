@@ -8,7 +8,6 @@ import "leaflet-easybutton"
 import { MapIcons } from './map-icons.service';
 import { PlacesService } from '../places/places.service';
 import { Router, Params } from '@angular/router';
-import { bounds } from 'leaflet';
 
 
 
@@ -79,9 +78,13 @@ export class MapComponent implements OnInit, OnDestroy {
 
   addMapControls(){
     L.control.scale().addTo(this.map);
+
+    //create city button
+
     L.easyButton("<span class='add'>Add selected city to your cities</span>", () => {
       this.mapService.createCity()
     }).addTo(this.map)
+    
     this.searchControl = new esrigeo.Geosearch().addTo(this.map);
   }
 
