@@ -8,6 +8,7 @@ import "leaflet-easybutton"
 import { MapIcons } from './map-icons.service';
 import { PlacesService } from '../places/places.service';
 import { Router, Params } from '@angular/router';
+import { bounds } from 'leaflet';
 
 
 
@@ -20,11 +21,10 @@ import { Router, Params } from '@angular/router';
 export class MapComponent implements OnInit, OnDestroy {
   map
   searchedCity: string
-  // togoCoor = []
-  // visitedCoor = []
   placesTogoSubscription: Subscription
   placesVisitedSubscription: Subscription
   searchControl
+  bounds = new L.LatLngBounds(new L.LatLng(-90,-180), new L.LatLng(90,180))
 
   constructor(private mapService: MapService,
               private iconsService: MapIcons,
@@ -32,7 +32,11 @@ export class MapComponent implements OnInit, OnDestroy {
               private router: Router) { }
 
   ngOnInit() {
-    this.map = L.map('map').setView([51.505, -0.09], 5)
+    this.map = L.map('map', {
+      minZoom: 3,
+      maxBounds: this.bounds,
+      maxBoundsViscosity: 1
+    }).setView([51.505, -0.09], 5)
     this.addMarkers()
     this.placesService.setPlaces()
     this.addMapLayer()
@@ -41,39 +45,31 @@ export class MapComponent implements OnInit, OnDestroy {
     
   }
 
-  // addMarkers(){
-  //   this.placesTogoSubscription = this.placesService.placesTogoChanged.subscribe(places => {
-  //     places.forEach(place => this.togoCoor.push(place.coordinates))
-  //     this.togoCoor.forEach(latlng => L.marker(latlng, {icon: this.iconsService.redIcon}).addTo(this.map).bindPopup(String(...latlng)))
-  //   })
-  //   this.placesVisitedSubscription =  this.placesService.placesVisitedChanged.subscribe(places => {
-  //     places.forEach(place => this.visitedCoor.push(place.coordinates))
-  //     this.visitedCoor.forEach(latlng => L.marker(latlng, {icon: this.iconsService.greenIcon}).addTo(this.map))
-  //   })
-  // }
-
   addMarkers(){
     this.placesTogoSubscription = this.placesService.placesTogoChanged.subscribe(places => {
-      places.forEach((place, index ) => {
-        L.marker(place.coordinates, {icon: this.iconsService.redIcon}).addTo(this.map).on("click", () => {
-          this.router.navigate(["/places", index], {queryParams:{finished : place.finished ? 1 : 0}})
-        })      
+      places.forEach((place, index) => {
+        L.marker(place.coordinates, {icon: this.iconsService.redIcon}).addTo(this.map).bindPopup(place.name).on("mouseover", function() {
+          this.openPopup()
+        }).on("mouseout", function(){
+          this.closePopup()
+        }).on("click", () => {
+          this.router.navigate(["/places", index], {queryParams: {finished : place.finished ? 1 : 0}})
+        })     
       })
     })
     this.placesVisitedSubscription = this.placesService.placesVisitedChanged.subscribe(places => {
       places.forEach((place, index)=> {
-        L.marker(place.coordinates, {icon: this.iconsService.greenIcon}).addTo(this.map).on("click", () => {
+        L.marker(place.coordinates, {icon: this.iconsService.greenIcon}).addTo(this.map).bindPopup(place.name).on("mouseover", function() {
+          this.openPopup()
+        }).on("mouseout", function(){
+          this.closePopup()
+        }).on("click", () => {
           this.router.navigate(["/places", index], {queryParams:{finished : place.finished ? 1 : 0}})
         })        
       })
     })
   }
 
-  // [queryParams]="{finished: isFinished ? 1 : 0}"
-
-  // onMarkerClick(){
-  //   console.log(place)
-  // }
 
   addMapLayer(){
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
