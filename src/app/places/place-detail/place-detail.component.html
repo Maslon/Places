@@ -8,6 +8,9 @@
 
 <div class="place" fxLayout="column" fxLayoutAlign="center center" >
   <h1 class="place-heading">{{ place.name }}</h1>
+  <div class="website-container">
+    <a class="website-link" [href]="place.website" target="_blank">City website</a>
+  </div>
   <div class="img-wait"> 
     <div [ngClass]="{'lds-dual-ring': time}" *ngIf="!imageLoaded; else img"></div> 
     <div #img [ngClass]="{'img-container': i === imageIndex}" *ngFor="let image of place.images; let i = index">
@@ -30,7 +33,18 @@
     <h2>Description</h2>
     <p  class="description" [ngClass]="{visible: descriptionShown}">{{ place.description }}</p>   
   </div>
-  <a class="website-link" [href]="place.website" target="_blank">City website</a>
+  <div class="note-container">
+    <h2  *ngIf="!addNoteClicked">My Notes</h2>
+    <div *ngIf="!addNoteClicked">
+      <button mat-button (click)="addNoteClicked = !addNoteClicked"><i class="material-icons">add</i>Add Note</button>
+    </div>
+    <div class="add-note" *ngIf="addNoteClicked" >
+      <textarea #text class="add-note-textarea" name="" id=""></textarea>
+      <button mat-raised-button (click)="onSaveNote($event)">Save Note</button>
+      <button mat-raised-button (click)="addNoteClicked = !addNoteClicked">Cancel</button>
+    </div>
+    <p *ngFor="let note of notes"></p>
+  </div>
   
 
 </div>

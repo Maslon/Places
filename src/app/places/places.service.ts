@@ -5,6 +5,7 @@ import { AngularFirestore } from "@angular/fire/firestore"
 import { Subject, Subscription } from "rxjs";
 import { map } from "rxjs/operators"
 import { Router } from '@angular/router';
+import { notStrictEqual } from 'assert';
 
 @Injectable({providedIn: "root"})
 
@@ -122,6 +123,14 @@ export class PlacesService {
     //     })
     //     this.placesTogoChanged.next(this.placesTogo)
     // }
+
+    addNoteToDatabase(place, index, note){
+        this.db.collection("placesToGo").doc(this.placesTogo[index].id).update({
+            ...place,
+            notes: place.notes.concat(note)
+        })
+        // this.placesTogoChanged.next(this.placesTogo)
+    }
 
     private addToDatabase(status, place){
         this.db.collection(status).add(place)

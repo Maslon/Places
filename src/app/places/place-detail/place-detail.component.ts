@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Place } from '../place.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { PlacesService } from '../places.service';
@@ -23,7 +23,9 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   // ]
 })
 export class PlaceDetailComponent implements OnInit {
-  // state = "hidden"
+  notes: string[] = []
+  @ViewChild("text") textArea
+  addNoteClicked = false
   time = false
   imageLoaded = false
   imgSrc
@@ -109,6 +111,12 @@ export class PlaceDetailComponent implements OnInit {
     // console.log(this.state)
     this.descriptionShown = !this.descriptionShown
     console.log(this.descriptionShown)
+  }
+
+  onSaveNote(){
+    // const note = this.textArea.nativeElement.value
+    console.log(this.textArea.nativeElement.value)
+    this.placesService.addNoteToDatabase(this.place, this.index, this.textArea.nativeElement.value)
   }
   
     

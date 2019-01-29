@@ -2,9 +2,15 @@ import { PlacesService } from './../places/places.service';
 import { Place } from './../places/place.model';
 import { Injectable } from "@angular/core";
 import wiki from "wikijs"
-import WikiJS from 'wikijs';
+
+export interface Info {
+    general: {
+        website: string
+    }
+}
 
 @Injectable({providedIn: "root"})
+
 
 export class MapService{
     cityName: string
@@ -67,7 +73,7 @@ export class MapService{
     getWebsite(){
         return wiki().page(this.cityName)
             .then(page => page.fullInfo())
-            .then(result => result.general.website.split(" ")[0].slice(1))
+            .then((result: Info ) => result.general.website.split(" ")[0].slice(1))
     }
 
     async createCity(){
@@ -79,7 +85,8 @@ export class MapService{
                 images: await this.getRandomImages(),
                 description: await this.getCitySummary(),
                 coordinates: this.cityCoordinates,
-                website: await this.getWebsite()
+                website: await this.getWebsite(),
+                notes: []
             })
             this.cityName = null;    
         }

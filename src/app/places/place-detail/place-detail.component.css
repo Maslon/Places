@@ -4,7 +4,7 @@
 }
 
 .place-heading{
-    
+    color: rgb(22, 22, 22)
 }
 
 img {
@@ -87,13 +87,17 @@ button, a {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-color: rgb(226, 223, 223);
+    box-shadow: 3px 5px rgba(226, 223, 223, 0.7);
 }
 
-.desc-container {
+.desc-container, .note-container {
     padding: 0.5rem;
     width: 100%;
     z-index: 10;
     background-color: lightblue;
+    cursor: pointer;
+    margin-bottom: 2rem;    
 }
 
 
@@ -101,7 +105,6 @@ button, a {
     overflow: hidden;
     max-height: 0;
     transition: all 1s ease-out;
-    cursor: pointer;    
 }
 
 .visible {
@@ -119,4 +122,33 @@ button, a {
 .website-link:hover {
     font-size: 1.6rem;
 }
+
+.website-container {
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.note-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.note-container h2 {
+    display: inline-block
+}
+
+.add-note {
+    width: 100%;
+}
+
+.add-note-textarea {
+    width: 100%;
+    height: 60px;
+    resize: none;
+}
+
+/* .note-container  {
+    display: inline-block
+} */
 

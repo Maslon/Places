@@ -4,6 +4,7 @@ export interface Place {
     images: string[]
     coordinates: number[]
     website: string
+    notes?: string[]
     finished?: boolean
     ownedBy?: string
     id: string
