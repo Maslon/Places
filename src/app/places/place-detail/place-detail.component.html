@@ -7,7 +7,7 @@
 </div>
 
 <div class="place" fxLayout="column" fxLayoutAlign="center center" >
-  <h1>{{ place.name }}</h1>
+  <h1 class="place-heading">{{ place.name }}</h1>
   <div class="img-wait"> 
     <div [ngClass]="{'lds-dual-ring': time}" *ngIf="!imageLoaded; else img"></div> 
     <div #img [ngClass]="{'img-container': i === imageIndex}" *ngFor="let image of place.images; let i = index">
@@ -26,14 +26,13 @@
       <mat-icon>arrow_right</mat-icon>
     </button>
   </div>
-  <!-- <div class="desc-container" (click)="showDesc()"> -->
   <div class="desc-container" (click)="showDesc()">
-    <h1>Description</h1>
-    <!-- <p  class="description" [ngClass]="{visible: descriptionShown}">{{ place.description }}</p>    -->
+    <h2>Description</h2>
+    <p  class="description" [ngClass]="{visible: descriptionShown}">{{ place.description }}</p>   
   </div>
-  <p [@descState]="state">{{ place.description }}</p>   
+  <a class="website-link" [href]="place.website" target="_blank">City website</a>
+  
 
 </div>
 
 
-<!-- [ngStyle]="{visibility: imageLoaded ? 'visible' : 'hidden'}" -->

@@ -3,6 +3,10 @@
     width: 100%
 }
 
+.place-heading{
+    
+}
+
 img {
     width: 100%;
     max-height: 400px;
@@ -92,17 +96,27 @@ button, a {
     background-color: lightblue;
 }
 
-.visible {
-    display: block;
-    /* transform: translate3d(0, 0, 0) */
-
-    
-}
 
 .description {
-    display: none;
-    /* transform: translate3d(0, 200px, 0); */
-    transition: all 1s ease-in;    
+    overflow: hidden;
+    max-height: 0;
+    transition: all 1s ease-out;
+    cursor: pointer;    
 }
 
+.visible {
+    max-height: 1000px;  
+}
+
+.website-link {
+    text-decoration: none;
+    cursor: pointer;
+    color: rgb(99, 95, 95);
+    font-size: 1.3rem;
+    transition: all 0.3s ; 
+}
+
+.website-link:hover {
+    font-size: 1.6rem;
+}
 

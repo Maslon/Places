@@ -8,22 +8,22 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   selector: 'app-place-detail',
   templateUrl: './place-detail.component.html',
   styleUrls: ['./place-detail.component.css'],
-  animations: [
-    trigger("descState", [
-      state("hidden", style({
-        display: "none",
-        opacity: "0"
-      })),
-      state("shown", style({
-        display: "block",
-        opacity: "1"
-      })),
-      transition("hidden => shown", animate(800))
-    ])
-  ]
+  // animations: [
+  //   trigger("descState", [
+  //     state("hidden", style({
+  //       display: "none",
+  //       opacity: "0"
+  //     })),
+  //     state("shown", style({
+  //       display: "block",
+  //       opacity: "1"
+  //     })),
+  //     transition("hidden => shown", animate(800))
+  //   ])
+  // ]
 })
 export class PlaceDetailComponent implements OnInit {
-  state = "hidden"
+  // state = "hidden"
   time = false
   imageLoaded = false
   imgSrc
@@ -32,7 +32,7 @@ export class PlaceDetailComponent implements OnInit {
   index: number;
   isVisited: boolean = false
   animated = false;
-  // descriptionShown = false;
+  descriptionShown = false;
   
   
 
@@ -105,10 +105,10 @@ export class PlaceDetailComponent implements OnInit {
   }
 
   showDesc(){
-    this.state === "hidden" ? this.state = "shown" : this.state = "hidden"
-    console.log(this.state)
-    // this.descriptionShown = !this.descriptionShown
-    // console.log(this.descriptionShown)
+    // this.state === "hidden" ? this.state = "shown" : this.state = "hidden"
+    // console.log(this.state)
+    this.descriptionShown = !this.descriptionShown
+    console.log(this.descriptionShown)
   }
   
     
