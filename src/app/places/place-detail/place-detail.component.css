@@ -107,6 +107,29 @@ button, a {
     transition: all 1s ease-out;
 }
 
+.notes {
+    overflow: hidden; 
+    max-height: 0;
+    transition: all 1s ease-out;
+    width: 100%;
+}
+
+.note {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background-color: grey;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.button-note-delete{
+    float: right;
+    color: rgb(129, 13, 13);
+    margin: 0;
+}
+
 .visible {
     max-height: 1000px;  
 }

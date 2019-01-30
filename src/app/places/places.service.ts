@@ -5,7 +5,6 @@ import { AngularFirestore } from "@angular/fire/firestore"
 import { Subject, Subscription } from "rxjs";
 import { map } from "rxjs/operators"
 import { Router } from '@angular/router';
-import { notStrictEqual } from 'assert';
 
 @Injectable({providedIn: "root"})
 
@@ -115,21 +114,19 @@ export class PlacesService {
     }
 
 
-    // updatePlace(place, index){
-    //     this.db.collection("placesToGo").doc(this.placesTogo[index].id).update({
-    //         name: place.name,
-    //         image: place.image,
-    //         description: place.description
-    //     })
-    //     this.placesTogoChanged.next(this.placesTogo)
-    // }
 
-    addNoteToDatabase(place, index, note){
-        this.db.collection("placesToGo").doc(this.placesTogo[index].id).update({
-            ...place,
+    async addNoteToDatabase(place, index, note){
+        await this.db.collection("placesToGo").doc(this.placesTogo[index].id).update({
             notes: place.notes.concat(note)
         })
-        // this.placesTogoChanged.next(this.placesTogo)
+        this.fetchGoPlaces()
+    }
+
+    async deleteNote(index, place, placeIndex){
+        await this.db.collection("placesToGo").doc(this.placesTogo[placeIndex].id).update({
+            notes: place.notes.filter((note, i ) => i !== index )
+        })
+        this.fetchGoPlaces()
     }
 
     private addToDatabase(status, place){

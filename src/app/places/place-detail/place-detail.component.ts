@@ -2,25 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Place } from '../place.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { PlacesService } from '../places.service';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-place-detail',
   templateUrl: './place-detail.component.html',
   styleUrls: ['./place-detail.component.css'],
-  // animations: [
-  //   trigger("descState", [
-  //     state("hidden", style({
-  //       display: "none",
-  //       opacity: "0"
-  //     })),
-  //     state("shown", style({
-  //       display: "block",
-  //       opacity: "1"
-  //     })),
-  //     transition("hidden => shown", animate(800))
-  //   ])
-  // ]
+ 
 })
 export class PlaceDetailComponent implements OnInit {
   notes: string[] = []
@@ -35,6 +22,7 @@ export class PlaceDetailComponent implements OnInit {
   isVisited: boolean = false
   animated = false;
   descriptionShown = false;
+  notesShown = false
   
   
 
@@ -106,22 +94,32 @@ export class PlaceDetailComponent implements OnInit {
     this.placesService.placeGoAgain(this.index)
   }
 
-  showDesc(){
-    // this.state === "hidden" ? this.state = "shown" : this.state = "hidden"
-    // console.log(this.state)
-    this.descriptionShown = !this.descriptionShown
-    console.log(this.descriptionShown)
+  onToggleAdd(){
+    event.stopPropagation()
+    this.addNoteClicked = !this.addNoteClicked
   }
 
-  onSaveNote(){
-    // const note = this.textArea.nativeElement.value
+  onShowNotes(){
+    if(!this.addNoteClicked){
+      this.notesShown = !this.notesShown
+    }
+  }
+
+
+  async onSaveNote(){
+    event.stopPropagation()
+    const note = this.textArea.nativeElement.value
     console.log(this.textArea.nativeElement.value)
-    this.placesService.addNoteToDatabase(this.place, this.index, this.textArea.nativeElement.value)
+    if(note !== ""){
+      await this.placesService.addNoteToDatabase(this.place, this.index, this.textArea.nativeElement.value)
+      this.setPlace()
+    }
+    this.textArea.nativeElement.value = ""
   }
-  
-    
 
-  
- 
+  async onDeleteNote(index){
+    await this.placesService.deleteNote(index, this.place, this.index)
+    this.setPlace()
+  }
 
 }
