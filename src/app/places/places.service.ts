@@ -48,16 +48,14 @@ export class PlacesService {
         this.placesTogo[index].finished = true
         this.addPlaceToDatabase(this.placesTogo[index])
         this.db.collection("placesToGo").doc(this.placesTogo[index].id).delete()
-        this.router.navigate(["/places"])
+        this.router.navigate(["/places", index], {queryParams: {finished : this.placesTogo[index].finished ? 1 : 0}})
     }
 
     placeGoAgain(index){
-        console.log(this.placesVisited[index])       
-        console.log(this.placesVisited[index].id) 
         this.placesVisited[index].finished = false      
         this.addPlaceToDatabase(this.placesVisited[index])
         this.db.collection("placesVisited").doc(this.placesVisited[index].id).delete()
-        this.router.navigate(["/places"])
+        this.router.navigate(["/places", index], {queryParams: {finished : this.placesVisited[index].finished ? 1 : 0}})
     }
 
     setPlaces(){
@@ -66,6 +64,13 @@ export class PlacesService {
             this.fetchGoPlaces()
             this.fetchVisitedPlaces()
         })
+    }
+
+    getPlaceNames(){
+        const namesArr = []
+        this.placesVisited.forEach(place => namesArr.push(place.name))
+        this.placesTogo.forEach(place => namesArr.push(place.name))
+        return namesArr
     }
 
     fetchGoPlaces(){
@@ -116,17 +121,32 @@ export class PlacesService {
 
 
     async addNoteToDatabase(place, index, note){
-        await this.db.collection("placesToGo").doc(this.placesTogo[index].id).update({
-            notes: place.notes.concat(note)
-        })
-        this.fetchGoPlaces()
+        if(place.finished){
+            await this.db.collection("placesVisited").doc(this.placesVisited[index].id).update({
+                notes: place.notes.concat(note)
+            })
+            this.fetchVisitedPlaces()
+        } else {
+            await this.db.collection("placesToGo").doc(this.placesTogo[index].id).update({
+                notes: place.notes.concat(note)
+            })
+            this.fetchGoPlaces()
+        }   
+        
     }
 
     async deleteNote(index, place, placeIndex){
-        await this.db.collection("placesToGo").doc(this.placesTogo[placeIndex].id).update({
-            notes: place.notes.filter((note, i ) => i !== index )
-        })
-        this.fetchGoPlaces()
+        if(place.finished){
+            await this.db.collection("placesVisited").doc(this.placesVisited[placeIndex].id).update({
+                notes: place.notes.filter((note, i ) => i !== index )
+            })
+            this.fetchVisitedPlaces()    
+        }else {
+            await this.db.collection("placesToGo").doc(this.placesTogo[placeIndex].id).update({
+                notes: place.notes.filter((note, i ) => i !== index )
+            })
+            this.fetchGoPlaces() 
+        }       
     }
 
     private addToDatabase(status, place){

@@ -1,13 +1,13 @@
 import { Subscription } from 'rxjs';
 import { MapService } from './map.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import "leaflet"
 declare let L
 import * as esrigeo from "esri-leaflet-geocoder"
 import "leaflet-easybutton"
 import { MapIcons } from './map-icons.service';
 import { PlacesService } from '../places/places.service';
-import { Router, Params } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 
@@ -22,6 +22,7 @@ export class MapComponent implements OnInit, OnDestroy {
   searchedCity: string
   placesTogoSubscription: Subscription
   placesVisitedSubscription: Subscription
+  cityScreenSubscription: Subscription
   searchControl
   bounds = new L.LatLngBounds(new L.LatLng(-90,-180), new L.LatLng(90,180))
 
@@ -35,14 +36,20 @@ export class MapComponent implements OnInit, OnDestroy {
       minZoom: 3,
       maxBounds: this.bounds,
       maxBoundsViscosity: 1
-    }).setView([51.505, -0.09], 5)
+    }).setView([51.505, 10], 5) 
     this.addMarkers()
     this.placesService.setPlaces()
     this.addMapLayer()
     this.addMapControls()    
     this.onSearch()
-    
+    // this. cityScreenSubscription = this.mapService.fromCityScreen.subscribe(coor => {
+    //   this.map.setView(coor)
+    //   console.log(coor)
+    //   console.log(this.map)
+    // })
   }
+
+  
 
   addMarkers(){
     this.placesTogoSubscription = this.placesService.placesTogoChanged.subscribe(places => {
@@ -101,6 +108,8 @@ export class MapComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(){
     this.placesTogoSubscription.unsubscribe()
+    this.placesVisitedSubscription.unsubscribe()
+    // this.cityScreenSubscription.unsubscribe()
   }
 
 }

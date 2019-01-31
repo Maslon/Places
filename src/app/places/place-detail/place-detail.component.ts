@@ -1,3 +1,4 @@
+import { MapService } from './../../map/map.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Place } from '../place.model';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -22,12 +23,14 @@ export class PlaceDetailComponent implements OnInit {
   isVisited: boolean = false
   animated = false;
   descriptionShown = false;
-  notesShown = false
+  notesShown = false;
+  boxChecked: boolean
   
   
 
   constructor(private route: ActivatedRoute,
-              private placesService: PlacesService) { }
+              private placesService: PlacesService,
+              private mapService: MapService) { }
 
   ngOnInit() {
     this.imageIndex = 0;
@@ -86,13 +89,9 @@ export class PlaceDetailComponent implements OnInit {
     this.placesService.deletePlace(this.index, this.isVisited)
   }
 
-  onVisited(){
-    this.placesService.placeVisited(this.index)
-  }
-
-  onGoAgain(){
-    this.placesService.placeGoAgain(this.index)
-  }
+  // onShowMap(){
+  //   this.mapService.showCityOnMap(this.place.coordinates)
+  // }
 
   onToggleAdd(){
     event.stopPropagation()
@@ -120,6 +119,11 @@ export class PlaceDetailComponent implements OnInit {
   async onDeleteNote(index){
     await this.placesService.deleteNote(index, this.place, this.index)
     this.setPlace()
+  }
+
+  onBoxCheck(e){
+    e.checked ? this.placesService.placeVisited(this.index) :  this.placesService.placeGoAgain(this.index)
+
   }
 
 }

@@ -1,8 +1,8 @@
 <button mat-raised-button color="accent" routerLink="..">Back</button>
 <div class="button-group">
   <button mat-raised-button (click)="onDelete()" color="warn">Delete</button>
-  <button *ngIf="!isVisited" mat-raised-button (click)="onVisited()" color="accent">Visited</button>
-  <button *ngIf="isVisited" mat-raised-button (click)="onGoAgain()" color="accent">Go again</button>
+  <mat-checkbox (change)="onBoxCheck($event)" [checked]="place.finished" >Visited</mat-checkbox>
+  <!-- <button mat-raised-button color="primary" (click)="onShowMap()">Show on map</button> -->
 </div>
 
 <div class="place" fxLayout="column" fxLayoutAlign="center center" >
