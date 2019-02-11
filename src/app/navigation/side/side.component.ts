@@ -19,4 +19,8 @@ export class SideComponent implements OnInit {
   closeSideNav(){
     this.closeSide.emit()
   }
+
+  onLogout(){
+    this.authService.logout()
+  }
 }

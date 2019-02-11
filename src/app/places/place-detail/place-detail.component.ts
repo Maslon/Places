@@ -14,9 +14,9 @@ export class PlaceDetailComponent implements OnInit {
   notes: string[] = []
   @ViewChild("text") textArea
   addNoteClicked = false
+  firstImage = true
   time = false
   imageLoaded = false
-  imgSrc
   imageIndex: number
   place: Place
   index: number;
@@ -41,6 +41,7 @@ export class PlaceDetailComponent implements OnInit {
 
   timeout(){
     setTimeout(() => this.time = true, 200)
+    this.firstImage = false
   }
   
 

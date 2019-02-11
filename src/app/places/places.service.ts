@@ -60,9 +60,11 @@ export class PlacesService {
 
     setPlaces(){
         this.afAuth.authState.subscribe(user => {
-            this.userId = user.uid
-            this.fetchGoPlaces()
-            this.fetchVisitedPlaces()
+            if(user){
+                this.userId = user.uid
+                this.fetchGoPlaces()
+                this.fetchVisitedPlaces()    
+            }
         })
     }
 
@@ -91,7 +93,7 @@ export class PlacesService {
     }
 
     fetchVisitedPlaces(){
-        this.afAuth.authState.subscribe(user => this.userId = user.uid)
+        this.afAuth.authState.subscribe(user => user ? this.userId = user.uid : null)
         this.placesSubs.push(this.db.collection("placesVisited", ref => ref.where("ownedBy", "==", this.userId))
         .snapshotChanges()
         .pipe(map((data) => {

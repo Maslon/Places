@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import { MapService } from './map.service';
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import "leaflet"
 declare let L
 import * as esrigeo from "esri-leaflet-geocoder"
@@ -42,11 +42,6 @@ export class MapComponent implements OnInit, OnDestroy {
     this.addMapLayer()
     this.addMapControls()    
     this.onSearch()
-    // this. cityScreenSubscription = this.mapService.fromCityScreen.subscribe(coor => {
-    //   this.map.setView(coor)
-    //   console.log(coor)
-    //   console.log(this.map)
-    // })
   }
 
   

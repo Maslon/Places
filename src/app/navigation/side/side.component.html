@@ -11,6 +11,10 @@
     <mat-icon>navigation</mat-icon>
     <span>Places</span>
   </a>
+  <a *ngIf="isAuthenticated" mat-list-item routerLink="/map" routerLinkActive="router-link-active">
+    <mat-icon>map</mat-icon>
+    <span>Map</span>
+  </a>
   <mat-list-item>
     <button *ngIf="isAuthenticated" mat-icon-button class="side-nav-item">
       <mat-icon>eject</mat-icon>
