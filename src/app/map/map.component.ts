@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 })
 export class MapComponent implements OnInit, OnDestroy {
   map
+  showAlert: string
   searchedCity: string
   placesTogoSubscription: Subscription
   placesVisitedSubscription: Subscription
@@ -32,6 +33,8 @@ export class MapComponent implements OnInit, OnDestroy {
               private router: Router) { }
 
   ngOnInit() {
+    this.mapService.showAlert.subscribe(alert => this.showAlert = alert)
+
     this.map = L.map('map', {
       minZoom: 3,
       maxBounds: this.bounds,
@@ -101,10 +104,10 @@ export class MapComponent implements OnInit, OnDestroy {
     })
   }
 
+
   ngOnDestroy(){
     this.placesTogoSubscription.unsubscribe()
     this.placesVisitedSubscription.unsubscribe()
-    // this.cityScreenSubscription.unsubscribe()
   }
 
 }

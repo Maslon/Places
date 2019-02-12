@@ -1,8 +1,9 @@
-import { MapService } from './../../map/map.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Place } from '../place.model';
 import { ActivatedRoute, Params } from '@angular/router';
 import { PlacesService } from '../places.service';
+import { MatDialog } from '@angular/material';
+import { DeletePlaceComponent } from './delete-place.component';
 
 @Component({
   selector: 'app-place-detail',
@@ -30,7 +31,7 @@ export class PlaceDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private placesService: PlacesService,
-              private mapService: MapService) { }
+              private dialog: MatDialog) { }
 
   ngOnInit() {
     this.imageIndex = 0;
@@ -87,7 +88,12 @@ export class PlaceDetailComponent implements OnInit {
   }
 
   onDelete(){
-    this.placesService.deletePlace(this.index, this.isVisited)
+    const dialogRef = this.dialog.open(DeletePlaceComponent)
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.placesService.deletePlace(this.index, this.isVisited)
+      }
+    })
   }
 
   // onShowMap(){

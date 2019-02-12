@@ -9,7 +9,8 @@ import { MatToolbarModule,
          MatFormFieldModule,
          MatTabsModule,
          MatCheckboxModule,
-         MatPaginatorModule} from "@angular/material"
+         MatPaginatorModule,
+         MatDialogModule} from "@angular/material"
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { MatToolbarModule,
         MatFormFieldModule,
         MatTabsModule,
         MatCheckboxModule,
-        MatPaginatorModule        
+        MatPaginatorModule,
+        MatDialogModule        
     ],
     exports: [
         MatToolbarModule, 
@@ -37,7 +39,8 @@ import { MatToolbarModule,
         MatFormFieldModule,
         MatTabsModule,
         MatCheckboxModule,
-        MatPaginatorModule      
+        MatPaginatorModule,
+        MatDialogModule      
     ]
 })
 

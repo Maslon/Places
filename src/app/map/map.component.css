@@ -9,3 +9,41 @@
   }
 }
 
+.alert {
+  background: white;
+  border-radius: 5px;
+  width: 100%;
+  position: absolute;
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  background-color: rgb(114, 65, 65);
+}
+
+.open {
+  visibility: visible;
+  z-index: 1000;
+}
+
+.alert-text {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.close-button i{
+  vertical-align: middle;
+}
+
+.close-button:hover {
+  color: #8bc34a
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
+

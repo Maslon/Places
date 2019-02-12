@@ -3,6 +3,7 @@ import { Place } from './../places/place.model';
 import { Injectable } from "@angular/core";
 import wiki from "wikijs"
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 export interface Info {
     general: {
@@ -17,7 +18,8 @@ export class MapService{
     cityName: string
     city: Place
     cityCoordinates: number[]
-    // fromCityScreen = new Subject<number[]>()
+    showAlert = new Subject<string>()
+    
     
 
     constructor(private placesService: PlacesService,
@@ -38,11 +40,6 @@ export class MapService{
         .then(page => page.images())
         .then(results => results.filter(image => image.includes(this.cityName) && image.includes("jpg")))
     }
-
-    // showCityOnMap(coordinates){
-    //     this.router.navigate(["/map"])
-    //     setInterval(() => this.fromCityScreen.next(coordinates), 1000)               
-    // }
     
 
     async getRandomImages(){
@@ -84,9 +81,11 @@ export class MapService{
 
     async createCity(){
         if(!this.cityName){
-            alert("pick a city")
+            this.showAlert.next("pick")
+            setTimeout(() => this.showAlert.next(null), 3000)
         } else if(this.placesService.getPlaceNames().includes(this.cityName)){
-            alert("city already created")
+            this.showAlert.next("created")
+            setTimeout(() => this.showAlert.next(null), 3000)
         }
         else {
             this.placesService.addPlaceToDatabase({
@@ -100,6 +99,8 @@ export class MapService{
             this.cityName = null;    
         }
     }
+
+    
 
 
 

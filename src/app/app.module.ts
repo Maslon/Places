@@ -22,7 +22,7 @@ import { RegisterComponent } from './authentication/register/register.component'
 import { LoginComponent } from './authentication/login/login.component';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { PlaceItemComponent } from './places/place-item/place-item.component';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet'
+import { DeletePlaceComponent } from './places/place-detail/delete-place.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet'
     RegisterComponent,
     LoginComponent,
     PlaceItemComponent,
-    MapComponent
+    MapComponent,
+    DeletePlaceComponent
   ],
   imports: [
     FormsModule,
@@ -49,10 +50,10 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet'
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    ReactiveFormsModule,
-    LeafletModule.forRoot()
+    ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DeletePlaceComponent]
 })
 export class AppModule { }
