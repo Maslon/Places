@@ -12,7 +12,6 @@ import { DeletePlaceComponent } from './delete-place.component';
  
 })
 export class PlaceDetailComponent implements OnInit {
-  notes: string[] = []
   @ViewChild("text") textArea
   addNoteClicked = false
   firstImage = true
@@ -96,9 +95,6 @@ export class PlaceDetailComponent implements OnInit {
     })
   }
 
-  // onShowMap(){
-  //   this.mapService.showCityOnMap(this.place.coordinates)
-  // }
 
   onToggleAdd(){
     event.stopPropagation()

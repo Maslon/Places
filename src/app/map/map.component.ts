@@ -104,6 +104,10 @@ export class MapComponent implements OnInit, OnDestroy {
     })
   }
 
+  closeAlert(){
+    this.showAlert = null;
+  }
+
 
   ngOnDestroy(){
     this.placesTogoSubscription.unsubscribe()

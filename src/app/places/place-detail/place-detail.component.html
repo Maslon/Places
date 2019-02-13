@@ -33,6 +33,7 @@
   </div>
   <div class="note-container" (click)="onShowNotes()">
     <h2  *ngIf="!addNoteClicked">My Notes</h2>
+    <p>Number of notes: {{ place.notes.length }}</p>
     <div *ngIf="!addNoteClicked">
       <button mat-button (click)="onToggleAdd()"><i class="material-icons">add</i>Add Note</button>
     </div>

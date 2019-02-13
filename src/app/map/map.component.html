@@ -1,5 +1,5 @@
 <div class="alert" [ngClass]="{open: showAlert}">
     <p class="alert-text" [innerText]="showAlert === 'pick' ? 'Please pick a city' : 'City already created'"></p>
-    <button class="mat-icon-button close-button"><i class="material-icons">close</i></button>
+    <button (click)="closeAlert()" class="mat-icon-button close-button"><i class="material-icons">close</i></button>
 </div>
 <div id="map"></div>

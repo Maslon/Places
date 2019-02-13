@@ -159,6 +159,7 @@ button, a {
 .note-container{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .note-container h2 {
