@@ -36,7 +36,7 @@ export class MapService{
 
 
     fetchImages(){
-        return wiki().page(this.cityName)
+        return wiki({ apiUrl: 'https://en.wikipedia.org/w/api.php' }).page(this.cityName)
         .then(page => page.images())
         .then(results => results.filter(image => image.includes(this.cityName) && image.includes("jpg")))
     }
@@ -68,13 +68,13 @@ export class MapService{
     }
 
     getCitySummary(){
-        return wiki().page(this.cityName)
+        return wiki({ apiUrl: 'https://en.wikipedia.org/w/api.php' }).page(this.cityName)
             .then(page => page.summary())
             .then(result => result)
     }
 
     getWebsite(){
-        return wiki().page(this.cityName)
+        return wiki({ apiUrl: 'https://en.wikipedia.org/w/api.php' }).page(this.cityName)
             .then(page => page.fullInfo())
             .then((result: Info ) => result.general.website.split(" ")[0].slice(1))
     }
