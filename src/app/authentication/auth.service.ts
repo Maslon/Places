@@ -9,6 +9,7 @@ import { Subject } from "rxjs";
 
 export class AuthService {
     private isAuth = false
+    authError = new Subject<string>()
     logState = new Subject<boolean>()
 
     constructor(private afAuth: AngularFireAuth,
@@ -35,12 +36,18 @@ export class AuthService {
 
     registerUser(authData: AuthData){
         this.afAuth.auth.createUserWithEmailAndPassword(authData.email, authData.password)
-        this.router.navigate(["/places"])
+        .then(result => {
+            this.router.navigate(["/places"])
+        })
+        .catch(error => this.authError.next(error.message))
     }
 
     loginUser(authData: AuthData){
         this.afAuth.auth.signInWithEmailAndPassword(authData.email, authData.password)
-        this.router.navigate(["/places"])
+        .then(result => {
+            this.router.navigate(["/places"])
+        })
+        .catch(error => this.authError.next(error.message))
     }
 
     logout(){

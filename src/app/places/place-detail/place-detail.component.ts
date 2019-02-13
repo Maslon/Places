@@ -46,6 +46,10 @@ export class PlaceDetailComponent implements OnInit {
   }
   
 
+  websiteTest(){
+    console.log(this.place.website)
+  }
+
   onImageLoad(e){
     this.imageLoaded = true
   }
