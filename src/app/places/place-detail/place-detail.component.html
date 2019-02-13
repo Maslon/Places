@@ -10,8 +10,8 @@
     <a class="website-link" [href]="place.website" target="_blank">City website</a>
   </div>
   <div class="img-wait"> 
-    <div [ngClass]="{'lds-dual-ring': time || firstImage}" *ngIf="!imageLoaded; else img"></div> 
-    <div #img [ngClass]="{'img-container': i === imageIndex}" *ngFor="let image of place.images; let i = index">
+    <div [ngClass]="{'lds-dual-ring': time || firstImage}" *ngIf="!imageLoaded"></div> 
+    <div [ngClass]="{'img-container': i === imageIndex}" *ngFor="let image of place.images; let i = index">
       <img  src="{{ image }}" alt="{{ image }}" *ngIf="i === imageIndex"
         (load)="onImageLoad()"
         [ngClass]="{shown: imageLoaded}"

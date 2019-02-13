@@ -13,6 +13,7 @@ import { DeletePlaceComponent } from './delete-place.component';
 })
 export class PlaceDetailComponent implements OnInit {
   @ViewChild("text") textArea
+  // @ViewChild("img") img
   addNoteClicked = false
   firstImage = true
   time = false
