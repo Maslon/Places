@@ -18,13 +18,11 @@ export class AuthService {
 
 
     initAuth(){
-        console.log(this.isAuth + " before subscription")
         this.afAuth.authState.subscribe(user => {
             if(user){
                 this.isAuth = true
                 this.logState.next(true)
                 this.router.navigate(["/map"])
-                console.log(this.isAuth)
             } else {
                 this.isAuth = false
                 this.logState.next(false)

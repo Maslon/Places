@@ -13,7 +13,6 @@ import { DeletePlaceComponent } from './delete-place.component';
 })
 export class PlaceDetailComponent implements OnInit {
   @ViewChild("text") textArea
-  // @ViewChild("img") img
   addNoteClicked = false
   firstImage = true
   time = false
@@ -37,7 +36,6 @@ export class PlaceDetailComponent implements OnInit {
     this.imageIndex = 0;
     this.getQueryParams()
     this.setPlace()
-    console.log(this.isVisited)
   }
 
   timeout(){
@@ -46,29 +44,30 @@ export class PlaceDetailComponent implements OnInit {
   }
   
 
-  websiteTest(){
-    console.log(this.place.website)
-  }
 
   onImageLoad(e){
     this.imageLoaded = true
   }
 
   nextImg(){
-    this.imageIndex++
-    this.imageIndex > this.place.images.length - 1 ?  this.imageIndex = 0 : null
-    this.animated = true
-    this.imageLoaded = false
-    this.time = false
-    this.timeout()
+    if(this.place.images.length > 1){
+      this.imageIndex++
+      this.imageIndex > this.place.images.length - 1 ?  this.imageIndex = 0 : null
+      this.animated = true
+      this.imageLoaded = false
+      this.time = false
+      this.timeout()  
+    }
   }
 
   prevImg(){
-    this.imageIndex--
-    this.imageIndex === -1 ? this.imageIndex = this.place.images.length - 1 : null
-    this.imageLoaded = false
-    this.time = false
-    this.timeout()
+    if(this.place.images.length > 1){
+      this.imageIndex--
+      this.imageIndex === -1 ? this.imageIndex = this.place.images.length - 1 : null
+      this.imageLoaded = false
+      this.time = false
+      this.timeout()  
+    }
   }
 
 
@@ -116,7 +115,6 @@ export class PlaceDetailComponent implements OnInit {
   async onSaveNote(){
     event.stopPropagation()
     const note = this.textArea.nativeElement.value
-    console.log(this.textArea.nativeElement.value)
     if(note !== ""){
       await this.placesService.addNoteToDatabase(this.place, this.index, this.textArea.nativeElement.value)
       this.setPlace()

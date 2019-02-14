@@ -17,7 +17,6 @@ export class PlacesTogoComponent implements OnInit {
   ngOnInit() {
     this.subscription = this.placesService.placesTogoChanged.subscribe(places => this.places = places)
     this.placesService.setPlaces()
-    // this.placesService.fetchGoPlaces()
   }
 
   ngOnDestroy(){

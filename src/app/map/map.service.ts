@@ -38,7 +38,7 @@ export class MapService{
     fetchImages(){
         return wiki().page(this.cityName)
         .then(page => page.images())
-        .then(results => results.filter(image => image.includes(this.cityName) && image.includes("jpg")))
+        .then(results => results.filter(image => image.includes(this.cityName) && (image.includes("png") || image.includes("svg"))))
     }
     
 
