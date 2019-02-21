@@ -1,17 +1,22 @@
 .background {
-    height: 91vh;
+    height: 93.8vh;
     background-size: cover;
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-image: url("src/assets/images/wooden_map.jpg");
 }
 
-h1, h2 {
-    top: 20px;
-    color: rgb(68, 65, 65);
-    position: relative;
-    margin: 0;
-    text-align: center;
+@media(min-width: 600px){
+    .background{
+        height: 92.9vh
+    }
 }
 
+h1, h2 {
+    margin: 0 1rem;
+    top: 20px;
+    color: rgb(27, 27, 27);
+    position: relative;
+    text-align: center;
+}
 
