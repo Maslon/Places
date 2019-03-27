@@ -1,49 +1,48 @@
 #map {
-    height: calc(100vh - 56px);
-    padding: 0;
+	height: calc(100vh - 56px);
+	padding: 0;
 }
 
-@media(min-width: 600px){
-  #map {
-    height: calc(100vh - 65px)
-  }
+@media (min-width: 600px) {
+	#map {
+		height: calc(100vh - 65px);
+	}
 }
 
 .alert {
-  background: white;
-  border-radius: 5px;
-  width: 100%;
-  position: absolute;
-  visibility: hidden;
-  display: flex;
-  align-items: center;
-  background-color: rgb(114, 65, 65);
+	background: white;
+	border-radius: 5px;
+	width: 100%;
+	position: absolute;
+	visibility: hidden;
+	display: flex;
+	align-items: center;
+	background-color: rgb(114, 65, 65);
 }
 
 .open {
-  visibility: visible;
-  z-index: 1000;
+	visibility: visible;
+	z-index: 1000;
 }
 
 .alert-text {
-  display: inline-block;
-  margin: 0 auto;
+	display: inline-block;
+	margin: 0 auto;
 }
 
-.close-button i{
-  vertical-align: middle;
+.close-button i {
+	vertical-align: middle;
 }
 
 .close-button:hover {
-  color: #8bc34a
+	color: #8bc34a;
 }
 
-@media screen and (max-width: 700px){
-  .box{
-    width: 70%;
-  }
-  .popup{
-    width: 70%;
-  }
+@media screen and (max-width: 700px) {
+	.box {
+		width: 70%;
+	}
+	.popup {
+		width: 70%;
+	}
 }
-
