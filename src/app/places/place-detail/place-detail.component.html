@@ -7,7 +7,8 @@
 <div class="place" fxLayout="column" fxLayoutAlign="center center" >
   <h1 class="place-heading">{{ place.name }}</h1>
   <div class="website-container">
-    <a class="website-link" [href]="place.website" target="_blank">City website</a>
+    <a *ngIf="place.website !==''" class="website-link" [href]="place.website" target="_blank">City website</a>
+    <p *ngIf="place.website ===''">Website could not be retrieved</p>
   </div>
   <div class="img-wait"> 
     <div [ngClass]="{'lds-dual-ring': time || firstImage}" *ngIf="!imageLoaded"></div> 
